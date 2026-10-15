@@ -1,0 +1,1012 @@
+{
+  "schema": 1,
+  "explosives": [
+    {
+      "id": "tnt",
+      "name": "TNT",
+      "composition": [
+        {
+          "component": "TNT",
+          "mass_pct": 100.0
+        }
+      ],
+      "re_factor": 1.0,
+      "detonation_velocity_mps": 6900,
+      "density_gcc": 1.6,
+      "aluminum_fraction": 0.0,
+      "oxygen_balance_pct": -74.0,
+      "soot_yield": 0.1851,
+      "afterburn_mj_per_kg": 10.42,
+      "confidence": "high",
+      "sources": [
+        "Wikipedia: TNT equivalent (relative effectiveness table)"
+      ],
+      "notes": "Trinitrotoluene; the reference explosive."
+    },
+    {
+      "id": "comp_b",
+      "name": "Composition B",
+      "composition": [
+        {
+          "component": "RDX",
+          "mass_pct": 59.5
+        },
+        {
+          "component": "TNT",
+          "mass_pct": 39.5
+        },
+        {
+          "component": "wax",
+          "mass_pct": 1.0
+        }
+      ],
+      "re_factor": 1.33,
+      "detonation_velocity_mps": 7840,
+      "density_gcc": 1.72,
+      "aluminum_fraction": 0.0,
+      "oxygen_balance_pct": -45.5,
+      "soot_yield": 0.0905,
+      "afterburn_mj_per_kg": 6.75,
+      "confidence": "high",
+      "sources": [
+        "Wikipedia: TNT equivalent (relative effectiveness table)"
+      ],
+      "notes": "RDX/TNT 60/40 with wax. Also used here for Comp B-4 and 50/50 TNT/RDX fills."
+    },
+    {
+      "id": "comp_a5",
+      "name": "Composition A-5",
+      "composition": [
+        {
+          "component": "RDX",
+          "mass_pct": 98.5
+        },
+        {
+          "component": "stearic",
+          "mass_pct": 1.5
+        }
+      ],
+      "re_factor": 1.6,
+      "detonation_velocity_mps": 8470,
+      "density_gcc": 1.65,
+      "aluminum_fraction": 0.0,
+      "oxygen_balance_pct": -25.7,
+      "soot_yield": 0.0215,
+      "afterburn_mj_per_kg": 4.23,
+      "confidence": "high",
+      "sources": [
+        "Wikipedia: TNT equivalent (relative effectiveness table)"
+      ],
+      "notes": "Phlegmatized RDX."
+    },
+    {
+      "id": "c4",
+      "name": "Composition C-4",
+      "composition": [
+        {
+          "component": "RDX",
+          "mass_pct": 91.0
+        },
+        {
+          "component": "DOS",
+          "mass_pct": 5.3
+        },
+        {
+          "component": "PIB",
+          "mass_pct": 2.1
+        },
+        {
+          "component": "oil",
+          "mass_pct": 1.6
+        }
+      ],
+      "re_factor": 1.34,
+      "detonation_velocity_mps": 8040,
+      "density_gcc": 1.59,
+      "aluminum_fraction": 0.0,
+      "oxygen_balance_pct": -46.9,
+      "soot_yield": 0.134,
+      "afterburn_mj_per_kg": 6.37,
+      "confidence": "high",
+      "sources": [
+        "Wikipedia: TNT equivalent (relative effectiveness table)",
+        "Wikipedia: C-4 (explosive)"
+      ],
+      "notes": "Plastic explosive. The C-4 article gives 8,092 m/s."
+    },
+    {
+      "id": "tritonal",
+      "name": "Tritonal (80% TNT / 20% Al)",
+      "composition": [
+        {
+          "component": "TNT",
+          "mass_pct": 80.0
+        },
+        {
+          "component": "Al",
+          "mass_pct": 20.0
+        }
+      ],
+      "re_factor": 1.05,
+      "detonation_velocity_mps": 6650,
+      "density_gcc": 1.7,
+      "aluminum_fraction": 0.2,
+      "oxygen_balance_pct": -77.0,
+      "soot_yield": 0.1481,
+      "afterburn_mj_per_kg": 8.34,
+      "confidence": "high",
+      "sources": [
+        "Wikipedia: TNT equivalent (relative effectiveness table)"
+      ],
+      "notes": "Aluminized TNT; standard fill of US general-purpose bombs."
+    },
+    {
+      "id": "h6",
+      "name": "H-6",
+      "composition": [
+        {
+          "component": "RDX",
+          "mass_pct": 44.89
+        },
+        {
+          "component": "TNT",
+          "mass_pct": 29.06
+        },
+        {
+          "component": "Al",
+          "mass_pct": 20.9
+        },
+        {
+          "component": "wax",
+          "mass_pct": 4.68
+        },
+        {
+          "component": "CaCl2",
+          "mass_pct": 0.47
+        }
+      ],
+      "re_factor": 1.35,
+      "detonation_velocity_mps": 7367,
+      "density_gcc": 1.74,
+      "aluminum_fraction": 0.209,
+      "oxygen_balance_pct": -65.9,
+      "soot_yield": 0.135,
+      "afterburn_mj_per_kg": 6.43,
+      "confidence": "high",
+      "sources": [
+        "Wikipedia: H6 (explosive)"
+      ],
+      "notes": "Aluminized RDX/TNT used in bombs, mines and depth charges."
+    },
+    {
+      "id": "hbx1",
+      "name": "HBX-1",
+      "composition": [
+        {
+          "component": "RDX",
+          "mass_pct": 40.4
+        },
+        {
+          "component": "TNT",
+          "mass_pct": 37.8
+        },
+        {
+          "component": "Al",
+          "mass_pct": 17.1
+        },
+        {
+          "component": "wax",
+          "mass_pct": 4.7
+        }
+      ],
+      "re_factor": 1.27,
+      "detonation_velocity_mps": 7300,
+      "density_gcc": 1.72,
+      "aluminum_fraction": 0.171,
+      "oxygen_balance_pct": -68.1,
+      "soot_yield": 0.1516,
+      "afterburn_mj_per_kg": 7.18,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: HBX"
+      ],
+      "notes": "Density and detonation velocity estimated; RE taken as 98% of Torpex."
+    },
+    {
+      "id": "torpex",
+      "name": "Torpex",
+      "composition": [
+        {
+          "component": "RDX",
+          "mass_pct": 42.0
+        },
+        {
+          "component": "TNT",
+          "mass_pct": 40.0
+        },
+        {
+          "component": "Al",
+          "mass_pct": 18.0
+        }
+      ],
+      "re_factor": 1.3,
+      "detonation_velocity_mps": 7440,
+      "density_gcc": 1.8,
+      "aluminum_fraction": 0.18,
+      "oxygen_balance_pct": -54.7,
+      "soot_yield": 0.074,
+      "afterburn_mj_per_kg": 5.78,
+      "confidence": "high",
+      "sources": [
+        "Wikipedia: TNT equivalent (relative effectiveness table)"
+      ],
+      "notes": "Aluminized RDX/TNT for underwater and blast weapons."
+    },
+    {
+      "id": "minol2",
+      "name": "Minol-2",
+      "composition": [
+        {
+          "component": "TNT",
+          "mass_pct": 40.0
+        },
+        {
+          "component": "AN",
+          "mass_pct": 40.0
+        },
+        {
+          "component": "Al",
+          "mass_pct": 20.0
+        }
+      ],
+      "re_factor": 1.2,
+      "detonation_velocity_mps": 5900,
+      "density_gcc": 1.7,
+      "aluminum_fraction": 0.2,
+      "oxygen_balance_pct": -39.4,
+      "soot_yield": 0.014,
+      "afterburn_mj_per_kg": 3.62,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: Minol (explosive)"
+      ],
+      "notes": "Composition sourced; density, detonation velocity and RE are estimates."
+    },
+    {
+      "id": "amatol_5050",
+      "name": "Amatol 50/50",
+      "composition": [
+        {
+          "component": "AN",
+          "mass_pct": 50.0
+        },
+        {
+          "component": "TNT",
+          "mass_pct": 50.0
+        }
+      ],
+      "re_factor": 0.91,
+      "detonation_velocity_mps": 6290,
+      "density_gcc": 1.5,
+      "aluminum_fraction": 0.0,
+      "oxygen_balance_pct": -27.0,
+      "soot_yield": 0.0175,
+      "afterburn_mj_per_kg": 4.52,
+      "confidence": "high",
+      "sources": [
+        "Wikipedia: TNT equivalent (relative effectiveness table)"
+      ],
+      "notes": "Also used where a source says only 'amatol'."
+    },
+    {
+      "id": "amatol_8020",
+      "name": "Amatol 80/20 (80% AN)",
+      "composition": [
+        {
+          "component": "AN",
+          "mass_pct": 80.0
+        },
+        {
+          "component": "TNT",
+          "mass_pct": 20.0
+        }
+      ],
+      "re_factor": 1.1,
+      "detonation_velocity_mps": 6570,
+      "density_gcc": 1.55,
+      "aluminum_fraction": 0.0,
+      "oxygen_balance_pct": 1.2,
+      "soot_yield": 0.0,
+      "afterburn_mj_per_kg": 0.0,
+      "confidence": "medium",
+      "sources": [
+        "Wikipedia: TNT equivalent (relative effectiveness table)"
+      ],
+      "notes": "Values as listed in the RE table."
+    },
+    {
+      "id": "amatol_60tnt",
+      "name": "Amatol (60% TNT / 40% AN)",
+      "composition": [
+        {
+          "component": "TNT",
+          "mass_pct": 60.0
+        },
+        {
+          "component": "AN",
+          "mass_pct": 40.0
+        }
+      ],
+      "re_factor": 0.93,
+      "detonation_velocity_mps": 6410,
+      "density_gcc": 1.54,
+      "aluminum_fraction": 0.0,
+      "oxygen_balance_pct": -36.4,
+      "soot_yield": 0.051,
+      "afterburn_mj_per_kg": 5.7,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: Amatol"
+      ],
+      "notes": "German/WWII TNT-rich grade. Properties interpolated between TNT and amatol 50/50."
+    },
+    {
+      "id": "trialen_105",
+      "name": "Trialen 105",
+      "composition": [
+        {
+          "component": "TNT",
+          "mass_pct": 70.0
+        },
+        {
+          "component": "RDX",
+          "mass_pct": 15.0
+        },
+        {
+          "component": "Al",
+          "mass_pct": 15.0
+        }
+      ],
+      "re_factor": 1.2,
+      "detonation_velocity_mps": 6800,
+      "density_gcc": 1.7,
+      "aluminum_fraction": 0.15,
+      "oxygen_balance_pct": -68.4,
+      "soot_yield": 0.1296,
+      "afterburn_mj_per_kg": 7.87,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: SC1000 bomb"
+      ],
+      "notes": "German aluminized fill; properties estimated."
+    },
+    {
+      "id": "ammonal",
+      "name": "Ammonal (WWI)",
+      "composition": [
+        {
+          "component": "AN",
+          "mass_pct": 65.0
+        },
+        {
+          "component": "Al",
+          "mass_pct": 17.0
+        },
+        {
+          "component": "TNT",
+          "mass_pct": 15.0
+        },
+        {
+          "component": "C",
+          "mass_pct": 3.0
+        }
+      ],
+      "re_factor": 0.9,
+      "detonation_velocity_mps": 4400,
+      "density_gcc": 1.1,
+      "aluminum_fraction": 0.17,
+      "oxygen_balance_pct": -21.2,
+      "soot_yield": 0.0,
+      "afterburn_mj_per_kg": 1.08,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: Ammonal"
+      ],
+      "notes": "Composition and detonation velocity sourced; density and RE estimated."
+    },
+    {
+      "id": "explosive_d",
+      "name": "Explosive D (ammonium picrate)",
+      "composition": [
+        {
+          "component": "AmPic",
+          "mass_pct": 100.0
+        }
+      ],
+      "re_factor": 0.95,
+      "detonation_velocity_mps": 7150,
+      "density_gcc": 1.55,
+      "aluminum_fraction": 0.0,
+      "oxygen_balance_pct": -52.0,
+      "soot_yield": 0.0976,
+      "afterburn_mj_per_kg": 7.8,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: Ammonium picrate"
+      ],
+      "notes": "Crystal density 1.719 g/cm3; loaded density, velocity and RE estimated."
+    },
+    {
+      "id": "picric_acid",
+      "name": "Picric acid (Lyddite / Melinite / Shimose)",
+      "composition": [
+        {
+          "component": "PA",
+          "mass_pct": 100.0
+        }
+      ],
+      "re_factor": 1.17,
+      "detonation_velocity_mps": 7350,
+      "density_gcc": 1.71,
+      "aluminum_fraction": 0.0,
+      "oxygen_balance_pct": -45.4,
+      "soot_yield": 0.0262,
+      "afterburn_mj_per_kg": 7.65,
+      "confidence": "high",
+      "sources": [
+        "Wikipedia: TNT equivalent (relative effectiveness table)"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "shellite",
+      "name": "Shellite",
+      "composition": [
+        {
+          "component": "PA",
+          "mass_pct": 70.0
+        },
+        {
+          "component": "DNP",
+          "mass_pct": 30.0
+        }
+      ],
+      "re_factor": 1.1,
+      "detonation_velocity_mps": 7000,
+      "density_gcc": 1.6,
+      "aluminum_fraction": 0.0,
+      "oxygen_balance_pct": -55.2,
+      "soot_yield": 0.0771,
+      "afterburn_mj_per_kg": 8.66,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: Disney bomb"
+      ],
+      "notes": "Picric acid / dinitrophenol mixture; proportions and properties estimated."
+    },
+    {
+      "id": "hexanite",
+      "name": "Hexanite (TNT 60 / HND 40)",
+      "composition": [
+        {
+          "component": "TNT",
+          "mass_pct": 60.0
+        },
+        {
+          "component": "HND",
+          "mass_pct": 40.0
+        }
+      ],
+      "re_factor": 0.98,
+      "detonation_velocity_mps": 7000,
+      "density_gcc": 1.6,
+      "aluminum_fraction": 0.0,
+      "oxygen_balance_pct": -65.5,
+      "soot_yield": 0.1384,
+      "afterburn_mj_per_kg": 9.6,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: Hexanite"
+      ],
+      "notes": "Also Japanese Type 97 and German Schiesswolle 36. Velocity and density estimated; the source calls it slightly less powerful than TNT."
+    },
+    {
+      "id": "tna",
+      "name": "Trinitroanisole (Type 91)",
+      "composition": [
+        {
+          "component": "TNA",
+          "mass_pct": 100.0
+        }
+      ],
+      "re_factor": 1.0,
+      "detonation_velocity_mps": 7200,
+      "density_gcc": 1.57,
+      "aluminum_fraction": 0.0,
+      "oxygen_balance_pct": -62.5,
+      "soot_yield": 0.1235,
+      "afterburn_mj_per_kg": 9.28,
+      "confidence": "low",
+      "sources": [],
+      "notes": "No source cited; all values are estimates."
+    },
+    {
+      "id": "rdx",
+      "name": "RDX",
+      "composition": [
+        {
+          "component": "RDX",
+          "mass_pct": 100.0
+        }
+      ],
+      "re_factor": 1.6,
+      "detonation_velocity_mps": 8600,
+      "density_gcc": 1.78,
+      "aluminum_fraction": 0.0,
+      "oxygen_balance_pct": -21.6,
+      "soot_yield": 0.0,
+      "afterburn_mj_per_kg": 3.82,
+      "confidence": "high",
+      "sources": [
+        "Wikipedia: TNT equivalent (relative effectiveness table)"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "hmx",
+      "name": "HMX",
+      "composition": [
+        {
+          "component": "HMX",
+          "mass_pct": 100.0
+        }
+      ],
+      "re_factor": 1.7,
+      "detonation_velocity_mps": 9100,
+      "density_gcc": 1.95,
+      "aluminum_fraction": 0.0,
+      "oxygen_balance_pct": -21.6,
+      "soot_yield": 0.0,
+      "afterburn_mj_per_kg": 3.82,
+      "confidence": "high",
+      "sources": [
+        "Wikipedia: TNT equivalent (relative effectiveness table)"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "petn",
+      "name": "PETN",
+      "composition": [
+        {
+          "component": "PETN",
+          "mass_pct": 100.0
+        }
+      ],
+      "re_factor": 1.66,
+      "detonation_velocity_mps": 8400,
+      "density_gcc": 1.77,
+      "aluminum_fraction": 0.0,
+      "oxygen_balance_pct": -10.1,
+      "soot_yield": 0.0,
+      "afterburn_mj_per_kg": 1.79,
+      "confidence": "high",
+      "sources": [
+        "Wikipedia: TNT equivalent (relative effectiveness table)"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "octol",
+      "name": "Octol 75/25",
+      "composition": [
+        {
+          "component": "HMX",
+          "mass_pct": 75.0
+        },
+        {
+          "component": "TNT",
+          "mass_pct": 25.0
+        }
+      ],
+      "re_factor": 1.54,
+      "detonation_velocity_mps": 8690,
+      "density_gcc": 1.83,
+      "aluminum_fraction": 0.0,
+      "oxygen_balance_pct": -34.7,
+      "soot_yield": 0.0463,
+      "afterburn_mj_per_kg": 5.47,
+      "confidence": "high",
+      "sources": [
+        "Wikipedia: TNT equivalent (relative effectiveness table)"
+      ],
+      "notes": "Used in shaped-charge warheads."
+    },
+    {
+      "id": "pentolite",
+      "name": "Pentolite 50/50",
+      "composition": [
+        {
+          "component": "PETN",
+          "mass_pct": 50.0
+        },
+        {
+          "component": "TNT",
+          "mass_pct": 50.0
+        }
+      ],
+      "re_factor": 1.33,
+      "detonation_velocity_mps": 7520,
+      "density_gcc": 1.66,
+      "aluminum_fraction": 0.0,
+      "oxygen_balance_pct": -42.0,
+      "soot_yield": 0.0356,
+      "afterburn_mj_per_kg": 6.93,
+      "confidence": "high",
+      "sources": [
+        "Wikipedia: TNT equivalent (relative effectiveness table)"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "semtex_1a",
+      "name": "Semtex 1A",
+      "composition": [
+        {
+          "component": "PETN",
+          "mass_pct": 76.6
+        },
+        {
+          "component": "RDX",
+          "mass_pct": 4.6
+        },
+        {
+          "component": "SBR",
+          "mass_pct": 18.8
+        }
+      ],
+      "re_factor": 1.35,
+      "detonation_velocity_mps": 7670,
+      "density_gcc": 1.55,
+      "aluminum_fraction": 0.0,
+      "oxygen_balance_pct": -67.7,
+      "soot_yield": 0.1838,
+      "afterburn_mj_per_kg": 9.33,
+      "confidence": "medium",
+      "sources": [
+        "Wikipedia: TNT equivalent (relative effectiveness table)"
+      ],
+      "notes": "Binder approximated as styrene-butadiene."
+    },
+    {
+      "id": "pbxn_109",
+      "name": "PBXN-109",
+      "composition": [
+        {
+          "component": "RDX",
+          "mass_pct": 64.0
+        },
+        {
+          "component": "Al",
+          "mass_pct": 20.0
+        },
+        {
+          "component": "HTPB",
+          "mass_pct": 8.0
+        },
+        {
+          "component": "DOA",
+          "mass_pct": 8.0
+        }
+      ],
+      "re_factor": 1.17,
+      "detonation_velocity_mps": 7450,
+      "density_gcc": 1.68,
+      "aluminum_fraction": 0.2,
+      "oxygen_balance_pct": -78.7,
+      "soot_yield": 0.2255,
+      "afterburn_mj_per_kg": 7.54,
+      "confidence": "medium",
+      "sources": [
+        "Wikipedia: TNT equivalent (relative effectiveness table)"
+      ],
+      "notes": "Insensitive aluminized PBX; binder split approximated."
+    },
+    {
+      "id": "pbxih_135",
+      "name": "PBXIH-135 EB (thermobaric)",
+      "composition": [
+        {
+          "component": "HMX",
+          "mass_pct": 42.0
+        },
+        {
+          "component": "Al",
+          "mass_pct": 33.0
+        },
+        {
+          "component": "HTPB",
+          "mass_pct": 25.0
+        }
+      ],
+      "re_factor": 1.17,
+      "detonation_velocity_mps": 7060,
+      "density_gcc": 1.81,
+      "aluminum_fraction": 0.33,
+      "oxygen_balance_pct": -119.8,
+      "soot_yield": 0.2902,
+      "afterburn_mj_per_kg": 11.49,
+      "confidence": "medium",
+      "sources": [
+        "Wikipedia: TNT equivalent (relative effectiveness table)"
+      ],
+      "notes": "Composition approximated."
+    },
+    {
+      "id": "afx_757",
+      "name": "AFX-757",
+      "composition": [
+        {
+          "component": "RDX",
+          "mass_pct": 25.0
+        },
+        {
+          "component": "AP",
+          "mass_pct": 30.0
+        },
+        {
+          "component": "Al",
+          "mass_pct": 33.0
+        },
+        {
+          "component": "HTPB",
+          "mass_pct": 12.0
+        }
+      ],
+      "re_factor": 1.9,
+      "detonation_velocity_mps": 6080,
+      "density_gcc": 1.84,
+      "aluminum_fraction": 0.33,
+      "oxygen_balance_pct": -63.6,
+      "soot_yield": 0.1098,
+      "afterburn_mj_per_kg": 4.48,
+      "confidence": "medium",
+      "sources": [
+        "Wikipedia: TNT equivalent (relative effectiveness table)"
+      ],
+      "notes": "Blast-optimized PBX; composition approximated. The RE factor is the table value."
+    },
+    {
+      "id": "pbxn_107",
+      "name": "PBXN-107",
+      "composition": [
+        {
+          "component": "RDX",
+          "mass_pct": 86.0
+        },
+        {
+          "component": "PMMA",
+          "mass_pct": 14.0
+        }
+      ],
+      "re_factor": 1.4,
+      "detonation_velocity_mps": 8100,
+      "density_gcc": 1.64,
+      "aluminum_fraction": 0.0,
+      "oxygen_balance_pct": -45.4,
+      "soot_yield": 0.1176,
+      "afterburn_mj_per_kg": 6.35,
+      "confidence": "low",
+      "sources": [],
+      "notes": "No source cited; all values are estimates. RDX with acrylic binder."
+    },
+    {
+      "id": "pbxn_103",
+      "name": "PBXN-103",
+      "composition": [
+        {
+          "component": "AP",
+          "mass_pct": 40.0
+        },
+        {
+          "component": "Al",
+          "mass_pct": 27.0
+        },
+        {
+          "component": "TMETN",
+          "mass_pct": 23.0
+        },
+        {
+          "component": "TEGDN",
+          "mass_pct": 10.0
+        }
+      ],
+      "re_factor": 1.3,
+      "detonation_velocity_mps": 5950,
+      "density_gcc": 1.89,
+      "aluminum_fraction": 0.27,
+      "oxygen_balance_pct": -25.0,
+      "soot_yield": 0.0,
+      "afterburn_mj_per_kg": 0.17,
+      "confidence": "low",
+      "sources": [],
+      "notes": "No source cited; composition and properties are estimates (underwater explosive)."
+    },
+    {
+      "id": "destex",
+      "name": "Destex",
+      "composition": [
+        {
+          "component": "TNT",
+          "mass_pct": 74.8
+        },
+        {
+          "component": "Al",
+          "mass_pct": 18.7
+        },
+        {
+          "component": "wax",
+          "mass_pct": 4.7
+        },
+        {
+          "component": "C",
+          "mass_pct": 1.8
+        }
+      ],
+      "re_factor": 1.05,
+      "detonation_velocity_mps": 6600,
+      "density_gcc": 1.7,
+      "aluminum_fraction": 0.187,
+      "oxygen_balance_pct": -93.0,
+      "soot_yield": 0.2381,
+      "afterburn_mj_per_kg": 10.08,
+      "confidence": "low",
+      "sources": [],
+      "notes": "No source cited; properties are estimates (aluminized TNT with wax and graphite, tritonal-like)."
+    },
+    {
+      "id": "gsx",
+      "name": "GSX slurry",
+      "composition": [
+        {
+          "component": "AN",
+          "mass_pct": 80.0
+        },
+        {
+          "component": "Al",
+          "mass_pct": 15.0
+        },
+        {
+          "component": "PS",
+          "mass_pct": 5.0
+        }
+      ],
+      "re_factor": 0.85,
+      "detonation_velocity_mps": 4000,
+      "density_gcc": 1.3,
+      "aluminum_fraction": 0.15,
+      "oxygen_balance_pct": -12.7,
+      "soot_yield": 0.0,
+      "afterburn_mj_per_kg": 0.0,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: BLU-82"
+      ],
+      "notes": "Ammonium nitrate / aluminium / polystyrene gel; proportions and properties estimated."
+    },
+    {
+      "id": "anfo",
+      "name": "ANFO",
+      "composition": [
+        {
+          "component": "AN",
+          "mass_pct": 94.3
+        },
+        {
+          "component": "fuel_oil",
+          "mass_pct": 5.7
+        }
+      ],
+      "re_factor": 0.74,
+      "detonation_velocity_mps": 4200,
+      "density_gcc": 0.92,
+      "aluminum_fraction": 0.0,
+      "oxygen_balance_pct": -1.0,
+      "soot_yield": 0.0,
+      "afterburn_mj_per_kg": 0.17,
+      "confidence": "high",
+      "sources": [
+        "Wikipedia: TNT equivalent (relative effectiveness table)"
+      ],
+      "notes": "Industrial blasting agent."
+    },
+    {
+      "id": "tgaf_5",
+      "name": "TGAF-5",
+      "composition": [
+        {
+          "component": "TNT",
+          "mass_pct": 40.0
+        },
+        {
+          "component": "RDX",
+          "mass_pct": 40.0
+        },
+        {
+          "component": "Al",
+          "mass_pct": 17.0
+        },
+        {
+          "component": "wax",
+          "mass_pct": 3.0
+        }
+      ],
+      "re_factor": 1.3,
+      "detonation_velocity_mps": 7200,
+      "density_gcc": 1.75,
+      "aluminum_fraction": 0.17,
+      "oxygen_balance_pct": -63.7,
+      "soot_yield": 0.1261,
+      "afterburn_mj_per_kg": 6.78,
+      "confidence": "low",
+      "sources": [
+        "AOAV: What is a Grad?"
+      ],
+      "notes": "Soviet rocket fill; composition sourced, properties estimated."
+    },
+    {
+      "id": "okfol",
+      "name": "OKFOL (HMX 95 / wax 5)",
+      "composition": [
+        {
+          "component": "HMX",
+          "mass_pct": 95.0
+        },
+        {
+          "component": "wax",
+          "mass_pct": 5.0
+        }
+      ],
+      "re_factor": 1.6,
+      "detonation_velocity_mps": 8670,
+      "density_gcc": 1.77,
+      "aluminum_fraction": 0.0,
+      "oxygen_balance_pct": -37.8,
+      "soot_yield": 0.0868,
+      "afterburn_mj_per_kg": 5.43,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: RPG-7"
+      ],
+      "notes": "Composition sourced; properties estimated."
+    },
+    {
+      "id": "thermobaric",
+      "name": "Thermobaric mixture (generic)",
+      "composition": [
+        {
+          "component": "RDX",
+          "mass_pct": 30.0
+        },
+        {
+          "component": "Al",
+          "mass_pct": 30.0
+        },
+        {
+          "component": "EO",
+          "mass_pct": 40.0
+        }
+      ],
+      "re_factor": 1.3,
+      "detonation_velocity_mps": 3000,
+      "density_gcc": 1.3,
+      "aluminum_fraction": 0.3,
+      "oxygen_balance_pct": -105.8,
+      "soot_yield": 0.2668,
+      "afterburn_mj_per_kg": 9.96,
+      "confidence": "low",
+      "sources": [],
+      "notes": "No source cited; illustrative composition for fuel-rich thermobaric fills, not a specific formulation."
+    }
+  ]
+}

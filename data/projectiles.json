@@ -1,0 +1,1580 @@
+{
+  "schema": 1,
+  "projectiles": [
+    {
+      "id": "3bm9",
+      "name": "3BM9 (125 mm APFSDS, steel rod)",
+      "kind": "long_rod",
+      "country": "USSR",
+      "year": 1962,
+      "gun": "125 mm smoothbore tank gun",
+      "velocity_mps": 1800,
+      "rod_material": "steel",
+      "diameter_mm": 36,
+      "length_mm": 470,
+      "published_rha_mm": 245,
+      "published_conditions": "0 deg at 2 km",
+      "published_velocity_mps": 1650,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: 2A46 125 mm gun (ammunition table)"
+      ],
+      "notes": "Early all-steel rod. Rod diameter and length are estimates consistent with the 5.67 kg projectile mass (about 3.7 kg rod plus sabot). Impact velocity at 2 km is estimated. Shape: generic dart fittings (ballistic cap, fins, tracer) in proportion to the rod. Fin span kept inside the 125 mm bore.",
+      "shape": {
+        "style": "dart",
+        "fins": {
+          "span_mm": 120
+        }
+      }
+    },
+    {
+      "id": "m829",
+      "name": "M829 (120 mm APFSDS-T, DU)",
+      "kind": "long_rod",
+      "country": "USA",
+      "year": 1985,
+      "gun": "120 mm smoothbore L/44 (M256)",
+      "velocity_mps": 1670,
+      "rod_material": "du",
+      "diameter_mm": 27,
+      "length_mm": 627,
+      "published_rha_mm": 540,
+      "published_conditions": "0 deg at up to 2 km",
+      "published_velocity_mps": 1550,
+      "confidence": "medium",
+      "sources": [
+        "Wikipedia: M829"
+      ],
+      "notes": "First US 120 mm DU round. Impact velocity at 2 km is estimated. Shape: generic dart fittings (ballistic cap, fins, tracer) in proportion to the rod.",
+      "shape": {
+        "style": "dart"
+      }
+    },
+    {
+      "id": "m829a1",
+      "name": "M829A1 (120 mm APFSDS-T, DU)",
+      "kind": "long_rod",
+      "country": "USA",
+      "year": 1991,
+      "gun": "120 mm smoothbore L/44 (M256)",
+      "velocity_mps": 1575,
+      "rod_material": "du",
+      "diameter_mm": 22,
+      "length_mm": 684,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: M829"
+      ],
+      "notes": "Diameter estimated from the 4.6 kg penetrator mass and 684 mm length. Shape: generic dart fittings (ballistic cap, fins, tracer) in proportion to the rod.",
+      "shape": {
+        "style": "dart"
+      }
+    },
+    {
+      "id": "m829a2",
+      "name": "M829A2 (120 mm APFSDS-T, DU)",
+      "kind": "long_rod",
+      "country": "USA",
+      "year": 1994,
+      "gun": "120 mm smoothbore L/44 (M256)",
+      "velocity_mps": 1675,
+      "rod_material": "du",
+      "diameter_mm": 22,
+      "length_mm": 780,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: M829"
+      ],
+      "notes": "Rod diameter is an estimate; the quoted length may include the fin section. Shape: generic dart fittings (ballistic cap, fins, tracer) in proportion to the rod.",
+      "shape": {
+        "style": "dart"
+      }
+    },
+    {
+      "id": "m829a3",
+      "name": "M829A3 (120 mm APFSDS-T, DU)",
+      "kind": "long_rod",
+      "country": "USA",
+      "year": 2003,
+      "gun": "120 mm smoothbore L/44 (M256)",
+      "velocity_mps": 1555,
+      "rod_material": "du",
+      "diameter_mm": 25,
+      "length_mm": 630,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: M829"
+      ],
+      "notes": "Modelled as the 630 mm DU rod only; the 100 mm steel nose section (for reactive armour) is left out, so the result is lower than open-source calculations of 680-720 mm RHA. Shape: generic dart fittings (ballistic cap, fins, tracer) in proportion to the rod.",
+      "shape": {
+        "style": "dart"
+      }
+    },
+    {
+      "id": "dm33",
+      "name": "DM33 (120 mm APFSDS-T, tungsten)",
+      "kind": "long_rod",
+      "country": "West Germany",
+      "year": 1987,
+      "gun": "120 mm smoothbore L/44 (Rh-120)",
+      "velocity_mps": 1650,
+      "rod_material": "tungsten",
+      "diameter_mm": 26,
+      "length_mm": 570,
+      "published_rha_mm": 470,
+      "published_conditions": "steel armour at 2 km",
+      "published_velocity_mps": 1530,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: Rheinmetall Rh-120"
+      ],
+      "notes": "Two-part tungsten penetrator; rod dimensions are open-source estimates. Impact velocity at 2 km is estimated. Shape: generic dart fittings (ballistic cap, fins, tracer) in proportion to the rod.",
+      "shape": {
+        "style": "dart"
+      }
+    },
+    {
+      "id": "dm53",
+      "name": "DM53 (120 mm APFSDS-T, tungsten)",
+      "kind": "long_rod",
+      "country": "Germany",
+      "year": 2001,
+      "gun": "120 mm smoothbore L/44 (L/55 gives ~1750 m/s)",
+      "velocity_mps": 1670,
+      "rod_material": "tungsten",
+      "diameter_mm": 20,
+      "length_mm": 745,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: Rheinmetall Rh-120 (8.35 kg projectile, L/D 38, 1750 m/s from L/55)"
+      ],
+      "notes": "Diameter chosen to match the quoted 38:1 slenderness; length is an open-source estimate. Shape: generic dart fittings (ballistic cap, fins, tracer) in proportion to the rod.",
+      "shape": {
+        "style": "dart"
+      }
+    },
+    {
+      "id": "3bm42",
+      "name": "3BM42 'Mango' (125 mm APFSDS, tungsten)",
+      "kind": "long_rod",
+      "country": "USSR",
+      "year": 1986,
+      "gun": "125 mm smoothbore (2A46)",
+      "velocity_mps": 1700,
+      "rod_material": "tungsten",
+      "diameter_mm": 24,
+      "length_mm": 570,
+      "density_kgm3": 16000,
+      "published_rha_mm": 450,
+      "published_conditions": "0 deg at 2 km",
+      "published_velocity_mps": 1580,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: 2A46 125 mm gun (ammunition table)"
+      ],
+      "notes": "Two tungsten-alloy segments in a steel jacket, modelled as one rod with a reduced mean density. Dimensions are estimates. Shape: generic dart fittings (ballistic cap, fins, tracer) in proportion to the rod.",
+      "shape": {
+        "style": "dart"
+      }
+    },
+    {
+      "id": "3bm59",
+      "name": "3BM59 'Svinets-1' (125 mm APFSDS, DU)",
+      "kind": "long_rod",
+      "country": "Russia",
+      "year": 2002,
+      "gun": "125 mm smoothbore (2A46M)",
+      "velocity_mps": 1660,
+      "rod_material": "du",
+      "diameter_mm": 22,
+      "length_mm": 740,
+      "published_rha_mm": 540,
+      "published_conditions": "0 deg at 2 km",
+      "published_velocity_mps": 1540,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: 2A46 125 mm gun (ammunition table)"
+      ],
+      "notes": "Rod dimensions are open-source estimates. Impact velocity at 2 km is estimated. Shape: generic dart fittings (ballistic cap, fins, tracer) in proportion to the rod.",
+      "shape": {
+        "style": "dart"
+      }
+    },
+    {
+      "id": "3bm60",
+      "name": "3BM60 'Svinets-2' (125 mm APFSDS, tungsten)",
+      "kind": "long_rod",
+      "country": "Russia",
+      "year": 2002,
+      "gun": "125 mm smoothbore (2A46M)",
+      "velocity_mps": 1660,
+      "rod_material": "tungsten",
+      "diameter_mm": 22,
+      "length_mm": 740,
+      "published_rha_mm": 515,
+      "published_conditions": "0 deg at 2 km",
+      "published_velocity_mps": 1540,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: 2A46 125 mm gun (ammunition table)"
+      ],
+      "notes": "Rod dimensions are open-source estimates. Impact velocity at 2 km is estimated. Shape: generic dart fittings (ballistic cap, fins, tracer) in proportion to the rod.",
+      "shape": {
+        "style": "dart"
+      }
+    },
+    {
+      "id": "generic_30mm_apfsds",
+      "name": "Generic 30 mm APFSDS (tungsten)",
+      "kind": "long_rod",
+      "country": "Generic",
+      "year": 1990,
+      "gun": "30 mm autocannon",
+      "velocity_mps": 1400,
+      "rod_material": "tungsten",
+      "diameter_mm": 8,
+      "length_mm": 110,
+      "confidence": "low",
+      "sources": [
+        "Representative of open-source descriptions of 30 mm sub-calibre rounds"
+      ],
+      "notes": "Illustrative autocannon rod, not a specific round. Shape: generic dart fittings (ballistic cap, fins, tracer) in proportion to the rod.",
+      "shape": {
+        "style": "dart"
+      }
+    },
+    {
+      "id": "m2_ap_30",
+      "name": ".30-06 M2 AP (steel core)",
+      "kind": "compact_ap",
+      "country": "USA",
+      "year": 1939,
+      "gun": "7.62x63 mm rifle and machine gun",
+      "velocity_mps": 850,
+      "diameter_mm": 6.2,
+      "mass_kg": 0.0052,
+      "length_mm": 27,
+      "confidence": "low",
+      "sources": [
+        "TM 9-1990 (1947), Small-arms ammunition (public manual)"
+      ],
+      "notes": "Hardened steel core only; jacket and lead filler are stripped on impact. Core dimensions approximate. Shape: jacketed bullet (gilding-metal jacket, lead sleeve, the steel core); outline approximate.",
+      "shape": {
+        "style": "bullet",
+        "diameter_mm": 7.82,
+        "length_mm": 35,
+        "nose_crh": 6,
+        "jacket": {
+          "thickness_mm": 0.6
+        },
+        "core": {
+          "nose_crh": 3
+        }
+      }
+    },
+    {
+      "id": "m2_ap_50",
+      "name": ".50 BMG M2 AP (steel core)",
+      "kind": "compact_ap",
+      "country": "USA",
+      "year": 1939,
+      "gun": "12.7x99 mm heavy machine gun",
+      "velocity_mps": 890,
+      "diameter_mm": 10.9,
+      "mass_kg": 0.026,
+      "length_mm": 45,
+      "confidence": "low",
+      "sources": [
+        "TM 9-1990 (1947), Small-arms ammunition (public manual)"
+      ],
+      "notes": "Hardened steel core only. Core dimensions approximate. Shape: jacketed bullet (gilding-metal jacket, lead sleeve, the steel core); outline approximate.",
+      "shape": {
+        "style": "bullet",
+        "diameter_mm": 12.95,
+        "length_mm": 58.5,
+        "nose_crh": 7,
+        "jacket": {
+          "thickness_mm": 1.0
+        },
+        "core": {
+          "nose_crh": 3
+        }
+      }
+    },
+    {
+      "id": "556_m995",
+      "name": "5.56x45 mm M995 AP (tungsten carbide core)",
+      "kind": "compact_ap",
+      "country": "USA",
+      "year": 1995,
+      "gun": "5.56x45 mm rifle",
+      "velocity_mps": 1013,
+      "diameter_mm": 4.0,
+      "mass_kg": 0.00225,
+      "length_mm": 15.0,
+      "rod_material": "tungsten",
+      "density_kgm3": 14900,
+      "confidence": "low",
+      "sources": [
+        "TM 43-0001-27, Army Ammunition Data Sheets: Small Caliber Ammunition (public manual)"
+      ],
+      "notes": "Tungsten carbide core only. Velocity is the published muzzle velocity. Shape: jacketed bullet (gilding-metal jacket, lead sleeve, the core); outline approximate. Core dimensions are estimates; the core mass is the estimate the outline gives.",
+      "shape": {
+        "style": "bullet",
+        "diameter_mm": 5.7,
+        "length_mm": 24.0,
+        "nose_crh": 7,
+        "jacket": {
+          "thickness_mm": 0.35
+        },
+        "core": {
+          "nose_crh": 3,
+          "material": "tungsten_carbide"
+        }
+      }
+    },
+    {
+      "id": "762_m61",
+      "name": "7.62x51 mm M61 AP (steel core)",
+      "kind": "compact_ap",
+      "country": "USA",
+      "year": 1957,
+      "gun": "7.62x51 mm rifle and machine gun",
+      "velocity_mps": 838,
+      "diameter_mm": 6.0,
+      "mass_kg": 0.00455,
+      "length_mm": 25.0,
+      "confidence": "low",
+      "sources": [
+        "TM 43-0001-27, Army Ammunition Data Sheets: Small Caliber Ammunition (public manual)"
+      ],
+      "notes": "Hardened steel core only. Velocity is the published muzzle velocity. Shape: jacketed bullet (gilding-metal jacket, lead sleeve, the core); outline approximate. Core dimensions are estimates; the core mass is the estimate the outline gives.",
+      "shape": {
+        "style": "bullet",
+        "diameter_mm": 7.82,
+        "length_mm": 33.0,
+        "nose_crh": 7,
+        "jacket": {
+          "thickness_mm": 0.6
+        },
+        "core": {
+          "nose_crh": 3
+        }
+      }
+    },
+    {
+      "id": "762_m993",
+      "name": "7.62x51 mm M993 AP (tungsten carbide core)",
+      "kind": "compact_ap",
+      "country": "USA",
+      "year": 1995,
+      "gun": "7.62x51 mm rifle and machine gun",
+      "velocity_mps": 910,
+      "diameter_mm": 5.3,
+      "mass_kg": 0.0059,
+      "length_mm": 22.0,
+      "rod_material": "tungsten",
+      "density_kgm3": 14900,
+      "confidence": "low",
+      "sources": [
+        "TM 43-0001-27, Army Ammunition Data Sheets: Small Caliber Ammunition (public manual)"
+      ],
+      "notes": "Tungsten carbide core only. Velocity is the published muzzle velocity. Shape: jacketed bullet (gilding-metal jacket, lead sleeve, the core); outline approximate. Core dimensions are estimates; the core mass is the estimate the outline gives.",
+      "shape": {
+        "style": "bullet",
+        "diameter_mm": 7.82,
+        "length_mm": 31.0,
+        "nose_crh": 7,
+        "jacket": {
+          "thickness_mm": 0.5
+        },
+        "core": {
+          "nose_crh": 3,
+          "material": "tungsten_carbide"
+        }
+      }
+    },
+    {
+      "id": "762x39_bz",
+      "name": "7.62x39 mm BZ API (steel core)",
+      "kind": "compact_ap",
+      "country": "USSR",
+      "year": 1949,
+      "gun": "7.62x39 mm rifle",
+      "velocity_mps": 735,
+      "diameter_mm": 5.8,
+      "mass_kg": 0.00325,
+      "length_mm": 20.0,
+      "confidence": "low",
+      "sources": [
+        "Soviet small-arms cartridge tables in open secondary literature (public)"
+      ],
+      "notes": "Hardened steel core only. Velocity is the published muzzle velocity. The incendiary pellet ahead of the core is drawn and simulated as an inert filling. Shape: jacketed bullet (gilding-metal jacket, lead sleeve, the core); outline approximate. Core dimensions are estimates; the core mass is the estimate the outline gives.",
+      "shape": {
+        "style": "bullet",
+        "diameter_mm": 7.92,
+        "length_mm": 26.8,
+        "nose_crh": 6,
+        "jacket": {
+          "thickness_mm": 0.6
+        },
+        "core": {
+          "nose_crh": 3
+        },
+        "incendiary": {
+          "length_mm": 4
+        }
+      }
+    },
+    {
+      "id": "762x54_b32",
+      "name": "7.62x54R B-32 API (steel core)",
+      "kind": "compact_ap",
+      "country": "USSR",
+      "year": 1932,
+      "gun": "7.62x54R rifle and machine gun",
+      "velocity_mps": 808,
+      "diameter_mm": 6.0,
+      "mass_kg": 0.0048,
+      "length_mm": 26.0,
+      "confidence": "low",
+      "sources": [
+        "Soviet small-arms cartridge tables in open secondary literature (public)"
+      ],
+      "notes": "Hardened steel core only. Velocity is the published muzzle velocity. The incendiary pellet ahead of the core is drawn and simulated as an inert filling. Shape: jacketed bullet (gilding-metal jacket, lead sleeve, the core); outline approximate. Core dimensions are estimates; the core mass is the estimate the outline gives.",
+      "shape": {
+        "style": "bullet",
+        "diameter_mm": 7.92,
+        "length_mm": 35.0,
+        "nose_crh": 7,
+        "jacket": {
+          "thickness_mm": 0.6
+        },
+        "core": {
+          "nose_crh": 3
+        },
+        "incendiary": {
+          "length_mm": 5
+        }
+      }
+    },
+    {
+      "id": "792_smk",
+      "name": "7.92x57 mm SmK AP (steel core)",
+      "kind": "compact_ap",
+      "country": "Germany",
+      "year": 1917,
+      "gun": "7.92x57 mm rifle and machine gun",
+      "velocity_mps": 785,
+      "diameter_mm": 6.0,
+      "mass_kg": 0.005,
+      "length_mm": 27.0,
+      "confidence": "low",
+      "sources": [
+        "German small-arms cartridge tables in open secondary literature (public)"
+      ],
+      "notes": "Hardened steel core only. Velocity is the published muzzle velocity. Shape: jacketed bullet (gilding-metal jacket, lead sleeve, the core); outline approximate. Core dimensions are estimates; the core mass is the estimate the outline gives.",
+      "shape": {
+        "style": "bullet",
+        "diameter_mm": 8.2,
+        "length_mm": 33.0,
+        "nose_crh": 6,
+        "jacket": {
+          "thickness_mm": 0.6
+        },
+        "core": {
+          "nose_crh": 3
+        }
+      }
+    },
+    {
+      "id": "127x108_b32",
+      "name": "12.7x108 mm B-32 API (steel core)",
+      "kind": "compact_ap",
+      "country": "USSR",
+      "year": 1938,
+      "gun": "12.7x108 mm heavy machine gun",
+      "velocity_mps": 820,
+      "diameter_mm": 10.0,
+      "mass_kg": 0.0231,
+      "length_mm": 45.0,
+      "confidence": "low",
+      "sources": [
+        "Soviet small-arms cartridge tables in open secondary literature (public)"
+      ],
+      "notes": "Hardened steel core only. Velocity is the published muzzle velocity. The incendiary pellet ahead of the core is drawn and simulated as an inert filling. Shape: jacketed bullet (gilding-metal jacket, lead sleeve, the core); outline approximate. Core dimensions are estimates; the core mass is the estimate the outline gives.",
+      "shape": {
+        "style": "bullet",
+        "diameter_mm": 12.98,
+        "length_mm": 64.0,
+        "nose_crh": 7,
+        "jacket": {
+          "thickness_mm": 1.0
+        },
+        "core": {
+          "nose_crh": 3
+        },
+        "incendiary": {
+          "length_mm": 8
+        }
+      }
+    },
+    {
+      "id": "145x114_b32",
+      "name": "14.5x114 mm B-32 API (steel core)",
+      "kind": "compact_ap",
+      "country": "USSR",
+      "year": 1941,
+      "gun": "14.5x114 mm anti-tank rifle and heavy machine gun",
+      "velocity_mps": 1000,
+      "diameter_mm": 12.0,
+      "mass_kg": 0.0364,
+      "length_mm": 50.0,
+      "confidence": "low",
+      "sources": [
+        "Soviet small-arms cartridge tables in open secondary literature (public)"
+      ],
+      "notes": "Hardened steel core only. Velocity is the published muzzle velocity. The incendiary pellet ahead of the core is drawn and simulated as an inert filling. Shape: jacketed bullet (gilding-metal jacket, lead sleeve, the core); outline approximate. Core dimensions are estimates; the core mass is the estimate the outline gives.",
+      "shape": {
+        "style": "bullet",
+        "diameter_mm": 14.88,
+        "length_mm": 65.0,
+        "nose_crh": 7,
+        "jacket": {
+          "thickness_mm": 1.0
+        },
+        "core": {
+          "nose_crh": 3
+        },
+        "incendiary": {
+          "length_mm": 8
+        }
+      }
+    },
+    {
+      "id": "145x114_bs41",
+      "name": "14.5x114 mm BS-41 API (tungsten carbide core)",
+      "kind": "compact_ap",
+      "country": "USSR",
+      "year": 1941,
+      "gun": "14.5x114 mm anti-tank rifle",
+      "velocity_mps": 1000,
+      "diameter_mm": 10.5,
+      "mass_kg": 0.044,
+      "length_mm": 42.0,
+      "rod_material": "tungsten",
+      "density_kgm3": 14900,
+      "confidence": "low",
+      "sources": [
+        "Soviet small-arms cartridge tables in open secondary literature (public)"
+      ],
+      "notes": "Tungsten carbide core only. Velocity is the published muzzle velocity. The incendiary pellet ahead of the core is drawn and simulated as an inert filling. Shape: jacketed bullet (gilding-metal jacket, lead sleeve, the core); outline approximate. Core dimensions are estimates; the core mass is the estimate the outline gives.",
+      "shape": {
+        "style": "bullet",
+        "diameter_mm": 14.88,
+        "length_mm": 65.0,
+        "nose_crh": 7,
+        "jacket": {
+          "thickness_mm": 1.0
+        },
+        "core": {
+          "nose_crh": 3,
+          "material": "tungsten_carbide"
+        },
+        "incendiary": {
+          "length_mm": 8
+        }
+      }
+    },
+    {
+      "id": "37mm_m51",
+      "name": "37 mm M51 APC",
+      "kind": "compact_ap",
+      "country": "USA",
+      "year": 1940,
+      "gun": "37 mm M5/M6 tank gun",
+      "velocity_mps": 884,
+      "diameter_mm": 37,
+      "mass_kg": 0.87,
+      "length_mm": 130,
+      "confidence": "medium",
+      "sources": [
+        "TM 9-1904 (1944), Ammunition inspection guide (public manual)"
+      ],
+      "notes": "Capped AP shot. Cap effects are not modelled. Shape: outline from period drawings, proportions approximate.",
+      "shape": {
+        "style": "apc",
+        "nose_crh": 1.5,
+        "cap": {
+          "length_mm": 20
+        },
+        "band": {
+          "from_base_mm": 22,
+          "width_mm": 8
+        },
+        "tracer": {
+          "length_mm": 25,
+          "diameter_mm": 14
+        },
+        "boat_tail_mm": 8,
+        "boat_tail_diameter_mm": 33
+      }
+    },
+    {
+      "id": "2pdr_ap",
+      "name": "QF 2-pounder AP shot (40 mm)",
+      "kind": "compact_ap",
+      "country": "UK",
+      "year": 1936,
+      "gun": "QF 2-pounder",
+      "velocity_mps": 792,
+      "diameter_mm": 40,
+      "mass_kg": 1.08,
+      "length_mm": 140,
+      "confidence": "medium",
+      "sources": [
+        "Wikipedia: Ordnance QF 2-pounder"
+      ],
+      "notes": "Solid uncapped shot. Shape: outline from period drawings, proportions approximate.",
+      "shape": {
+        "style": "ap",
+        "nose_crh": 1.5,
+        "band": {
+          "from_base_mm": 20,
+          "width_mm": 8
+        },
+        "tracer": {
+          "length_mm": 30,
+          "diameter_mm": 16
+        },
+        "boat_tail_mm": 8,
+        "boat_tail_diameter_mm": 36
+      }
+    },
+    {
+      "id": "6pdr_apcbc",
+      "name": "QF 6-pounder APCBC (57 mm)",
+      "kind": "compact_ap",
+      "country": "UK",
+      "year": 1943,
+      "gun": "QF 6-pounder Mk 5",
+      "velocity_mps": 831,
+      "diameter_mm": 57,
+      "mass_kg": 3.23,
+      "length_mm": 200,
+      "confidence": "medium",
+      "sources": [
+        "Wikipedia: Ordnance QF 6-pounder"
+      ],
+      "notes": "Capped, ballistic-capped shot. Cap effects are not modelled. Shape: outline from period drawings, proportions approximate.",
+      "shape": {
+        "style": "apcbc",
+        "nose_crh": 1.5,
+        "cap": {
+          "length_mm": 30
+        },
+        "windshield": {
+          "length_mm": 70,
+          "crh": 4
+        },
+        "band": {
+          "from_base_mm": 25,
+          "width_mm": 12
+        },
+        "tracer": {
+          "length_mm": 35,
+          "diameter_mm": 20
+        },
+        "boat_tail_mm": 12,
+        "boat_tail_diameter_mm": 50
+      }
+    },
+    {
+      "id": "75mm_m61",
+      "name": "75 mm M61 APC",
+      "kind": "compact_ap",
+      "country": "USA",
+      "year": 1941,
+      "gun": "75 mm M3 tank gun",
+      "velocity_mps": 619,
+      "diameter_mm": 75,
+      "mass_kg": 6.79,
+      "length_mm": 260,
+      "confidence": "medium",
+      "sources": [
+        "TM 9-1904 (1944), Ammunition inspection guide (public manual)"
+      ],
+      "notes": "Capped shot with an HE burster and a base delay fuze. Shape: outline from period drawings, proportions approximate. Filler: about 65 g of Explosive D in a 26 x 79 mm cavity; the 1000 us delay is an estimate.",
+      "shape": {
+        "filler": {
+          "explosive": "explosive_d",
+          "diameter_mm": 26,
+          "length_mm": 79
+        },
+        "fuze": {
+          "type": "base_delay",
+          "delay_us": 1000
+        },
+        "style": "apcbc",
+        "nose_crh": 1.5,
+        "cap": {
+          "length_mm": 40
+        },
+        "windshield": {
+          "length_mm": 85,
+          "crh": 4
+        },
+        "band": {
+          "from_base_mm": 30,
+          "width_mm": 15
+        },
+        "tracer": {
+          "length_mm": 40,
+          "diameter_mm": 22
+        },
+        "boat_tail_mm": 15,
+        "boat_tail_diameter_mm": 66
+      }
+    },
+    {
+      "id": "76mm_m62",
+      "name": "76 mm M62 APC",
+      "kind": "compact_ap",
+      "country": "USA",
+      "year": 1944,
+      "gun": "76 mm M1 tank gun",
+      "velocity_mps": 792,
+      "diameter_mm": 76.2,
+      "mass_kg": 7.0,
+      "length_mm": 270,
+      "confidence": "medium",
+      "sources": [
+        "TM 9-1904 (1944), Ammunition inspection guide (public manual)"
+      ],
+      "notes": "Capped shot with an HE burster and a base delay fuze. Shape: outline from period drawings, proportions approximate. Filler: about 64 g of Explosive D in a 26 x 78 mm cavity; the 1000 us delay is an estimate.",
+      "shape": {
+        "filler": {
+          "explosive": "explosive_d",
+          "diameter_mm": 26,
+          "length_mm": 78
+        },
+        "fuze": {
+          "type": "base_delay",
+          "delay_us": 1000
+        },
+        "style": "apcbc",
+        "nose_crh": 1.5,
+        "cap": {
+          "length_mm": 40
+        },
+        "windshield": {
+          "length_mm": 85,
+          "crh": 4
+        },
+        "band": {
+          "from_base_mm": 30,
+          "width_mm": 15
+        },
+        "tracer": {
+          "length_mm": 40,
+          "diameter_mm": 22
+        },
+        "boat_tail_mm": 15,
+        "boat_tail_diameter_mm": 67
+      }
+    },
+    {
+      "id": "17pdr_apcbc",
+      "name": "QF 17-pounder APCBC (76.2 mm)",
+      "kind": "compact_ap",
+      "country": "UK",
+      "year": 1943,
+      "gun": "QF 17-pounder",
+      "velocity_mps": 884,
+      "diameter_mm": 76.2,
+      "mass_kg": 7.65,
+      "length_mm": 280,
+      "confidence": "medium",
+      "sources": [
+        "Wikipedia: Ordnance QF 17-pounder"
+      ],
+      "notes": "Capped, ballistic-capped shot. Cap effects are not modelled. Shape: outline from period drawings, proportions approximate.",
+      "shape": {
+        "style": "apcbc",
+        "nose_crh": 1.5,
+        "cap": {
+          "length_mm": 40
+        },
+        "windshield": {
+          "length_mm": 95,
+          "crh": 4
+        },
+        "band": {
+          "from_base_mm": 30,
+          "width_mm": 15
+        },
+        "tracer": {
+          "length_mm": 40,
+          "diameter_mm": 22
+        },
+        "boat_tail_mm": 15,
+        "boat_tail_diameter_mm": 67
+      }
+    },
+    {
+      "id": "76mm_br350a",
+      "name": "76.2 mm BR-350A APHE",
+      "kind": "compact_ap",
+      "country": "USSR",
+      "year": 1941,
+      "gun": "76.2 mm F-34 tank gun",
+      "velocity_mps": 662,
+      "diameter_mm": 76.2,
+      "mass_kg": 6.3,
+      "length_mm": 260,
+      "confidence": "medium",
+      "sources": [
+        "Wikipedia: 76 mm tank gun M1940 F-34"
+      ],
+      "notes": "Blunt-nosed shot with an HE burster and a base delay fuze. Shape: outline from period drawings, proportions approximate. Blunt-nosed body under a ballistic cap. Filler: about 150 g, an estimate of TNT in a 36 x 89 mm cavity; the 1000 us delay is an estimate.",
+      "shape": {
+        "filler": {
+          "explosive": "tnt",
+          "diameter_mm": 36,
+          "length_mm": 89
+        },
+        "fuze": {
+          "type": "base_delay",
+          "delay_us": 1000
+        },
+        "style": "apbc",
+        "nose_crh": 0.5,
+        "windshield": {
+          "length_mm": 75,
+          "crh": 3
+        },
+        "band": {
+          "from_base_mm": 30,
+          "width_mm": 15
+        },
+        "tracer": {
+          "length_mm": 40,
+          "diameter_mm": 22
+        },
+        "boat_tail_mm": 15,
+        "boat_tail_diameter_mm": 67
+      }
+    },
+    {
+      "id": "85mm_br365",
+      "name": "85 mm BR-365 APHE",
+      "kind": "compact_ap",
+      "country": "USSR",
+      "year": 1944,
+      "gun": "85 mm ZiS-S-53 tank gun",
+      "velocity_mps": 792,
+      "diameter_mm": 85,
+      "mass_kg": 9.2,
+      "length_mm": 300,
+      "confidence": "medium",
+      "sources": [
+        "Wikipedia: 85 mm air defense gun M1939 (52-K) and derivatives"
+      ],
+      "notes": "Blunt-nosed shot with an HE burster and a base delay fuze. Shape: outline from period drawings, proportions approximate. Blunt-nosed body under a ballistic cap. Filler: about 160 g, an estimate of TNT in a 38 x 86 mm cavity; the 1000 us delay is an estimate.",
+      "shape": {
+        "filler": {
+          "explosive": "tnt",
+          "diameter_mm": 38,
+          "length_mm": 86
+        },
+        "fuze": {
+          "type": "base_delay",
+          "delay_us": 1000
+        },
+        "style": "apbc",
+        "nose_crh": 0.5,
+        "windshield": {
+          "length_mm": 85,
+          "crh": 3
+        },
+        "band": {
+          "from_base_mm": 35,
+          "width_mm": 16
+        },
+        "tracer": {
+          "length_mm": 45,
+          "diameter_mm": 25
+        },
+        "boat_tail_mm": 18,
+        "boat_tail_diameter_mm": 75
+      }
+    },
+    {
+      "id": "75mm_pzgr39_42",
+      "name": "7.5 cm PzGr 39/42 APCBC-HE",
+      "kind": "compact_ap",
+      "country": "Germany",
+      "year": 1943,
+      "gun": "7.5 cm KwK 42 (L/70)",
+      "velocity_mps": 925,
+      "diameter_mm": 75,
+      "mass_kg": 6.8,
+      "length_mm": 270,
+      "confidence": "medium",
+      "sources": [
+        "Wikipedia: 7.5 cm KwK 42"
+      ],
+      "notes": "Capped shot with an HE burster and a base delay fuze. Shape: outline from period drawings, proportions approximate. Filler: about 17 g of TNT in a 16 x 51 mm cavity; the 1000 us delay is an estimate.",
+      "shape": {
+        "filler": {
+          "explosive": "tnt",
+          "diameter_mm": 16,
+          "length_mm": 51
+        },
+        "fuze": {
+          "type": "base_delay",
+          "delay_us": 1000
+        },
+        "style": "apcbc",
+        "nose_crh": 1.5,
+        "cap": {
+          "length_mm": 40
+        },
+        "windshield": {
+          "length_mm": 90,
+          "crh": 4
+        },
+        "band": {
+          "from_base_mm": 30,
+          "width_mm": 15
+        },
+        "tracer": {
+          "length_mm": 40,
+          "diameter_mm": 22
+        },
+        "boat_tail_mm": 15,
+        "boat_tail_diameter_mm": 66
+      }
+    },
+    {
+      "id": "88mm_pzgr39_kwk36",
+      "name": "8.8 cm PzGr 39 APCBC-HE (KwK 36)",
+      "kind": "compact_ap",
+      "country": "Germany",
+      "year": 1942,
+      "gun": "8.8 cm KwK 36 (L/56)",
+      "velocity_mps": 773,
+      "diameter_mm": 88,
+      "mass_kg": 10.2,
+      "length_mm": 360,
+      "confidence": "medium",
+      "sources": [
+        "Wikipedia: 8.8 cm KwK 36"
+      ],
+      "notes": "Calibration point of the de Marre constant (about 127 mm RHA at the muzzle, 0 deg). Shape: outline from period drawings, proportions approximate. Filler: about 59 g burster (TNT assumed) in a 28 x 60 mm cavity with a base delay fuze; the 1000 us delay is an estimate.",
+      "shape": {
+        "style": "apcbc",
+        "nose_crh": 1.5,
+        "cap": {
+          "length_mm": 45
+        },
+        "filler": {
+          "explosive": "tnt",
+          "diameter_mm": 28,
+          "length_mm": 60
+        },
+        "fuze": {
+          "type": "base_delay",
+          "delay_us": 1000
+        },
+        "windshield": {
+          "length_mm": 165,
+          "crh": 4
+        },
+        "band": {
+          "from_base_mm": 35,
+          "width_mm": 18
+        },
+        "tracer": {
+          "length_mm": 45,
+          "diameter_mm": 25
+        },
+        "boat_tail_mm": 20,
+        "boat_tail_diameter_mm": 76
+      }
+    },
+    {
+      "id": "88mm_pzgr39_43",
+      "name": "8.8 cm PzGr 39/43 APCBC-HE (KwK 43)",
+      "kind": "compact_ap",
+      "country": "Germany",
+      "year": 1943,
+      "gun": "8.8 cm KwK 43 (L/71)",
+      "velocity_mps": 1000,
+      "diameter_mm": 88,
+      "mass_kg": 10.16,
+      "length_mm": 360,
+      "confidence": "medium",
+      "sources": [
+        "Wikipedia: 8.8 cm KwK 43"
+      ],
+      "notes": "Capped shot with an HE burster and a base delay fuze. Shape: outline from period drawings, proportions approximate. Filler: about 59 g of TNT in a 28 x 58 mm cavity; the 1000 us delay is an estimate.",
+      "shape": {
+        "filler": {
+          "explosive": "tnt",
+          "diameter_mm": 28,
+          "length_mm": 58
+        },
+        "fuze": {
+          "type": "base_delay",
+          "delay_us": 1000
+        },
+        "style": "apcbc",
+        "nose_crh": 1.5,
+        "cap": {
+          "length_mm": 45
+        },
+        "windshield": {
+          "length_mm": 165,
+          "crh": 4
+        },
+        "band": {
+          "from_base_mm": 35,
+          "width_mm": 18
+        },
+        "tracer": {
+          "length_mm": 45,
+          "diameter_mm": 25
+        },
+        "boat_tail_mm": 20,
+        "boat_tail_diameter_mm": 76
+      }
+    },
+    {
+      "id": "90mm_m82",
+      "name": "90 mm M82 APC",
+      "kind": "compact_ap",
+      "country": "USA",
+      "year": 1944,
+      "gun": "90 mm M3 gun",
+      "velocity_mps": 853,
+      "diameter_mm": 90,
+      "mass_kg": 10.94,
+      "length_mm": 330,
+      "confidence": "medium",
+      "sources": [
+        "TM 9-1904 (1944), Ammunition inspection guide (public manual)"
+      ],
+      "notes": "Capped shot with an HE burster and a base delay fuze. Shape: outline from period drawings, proportions approximate. Filler: about 62 g of Explosive D in a 26 x 75 mm cavity; the 1000 us delay is an estimate.",
+      "shape": {
+        "filler": {
+          "explosive": "explosive_d",
+          "diameter_mm": 26,
+          "length_mm": 75
+        },
+        "fuze": {
+          "type": "base_delay",
+          "delay_us": 1000
+        },
+        "style": "apcbc",
+        "nose_crh": 1.5,
+        "cap": {
+          "length_mm": 45
+        },
+        "windshield": {
+          "length_mm": 150,
+          "crh": 4
+        },
+        "band": {
+          "from_base_mm": 35,
+          "width_mm": 18
+        },
+        "tracer": {
+          "length_mm": 45,
+          "diameter_mm": 25
+        },
+        "boat_tail_mm": 20,
+        "boat_tail_diameter_mm": 80
+      }
+    },
+    {
+      "id": "122mm_br471",
+      "name": "122 mm BR-471 APHE",
+      "kind": "compact_ap",
+      "country": "USSR",
+      "year": 1944,
+      "gun": "122 mm D-25T tank gun",
+      "velocity_mps": 795,
+      "diameter_mm": 122,
+      "mass_kg": 25,
+      "length_mm": 450,
+      "confidence": "medium",
+      "sources": [
+        "Wikipedia: 122 mm gun M1931/37 (A-19) and D-25T"
+      ],
+      "notes": "Sharp-nosed shot with an HE burster and a base delay fuze. Shape: outline from period drawings, proportions approximate. Sharp-nosed, uncapped. A solid steel body of the listed 450 mm cannot weigh 25 kg: its parts come to about 32 kg, listed as a load warning. Filler: about 156 g of TNT in a 40 x 75 mm cavity; the 1000 us delay is an estimate.",
+      "shape": {
+        "filler": {
+          "explosive": "tnt",
+          "diameter_mm": 40,
+          "length_mm": 75
+        },
+        "fuze": {
+          "type": "base_delay",
+          "delay_us": 1000
+        },
+        "style": "ap",
+        "nose_crh": 3,
+        "band": {
+          "from_base_mm": 45,
+          "width_mm": 20
+        },
+        "tracer": {
+          "length_mm": 60,
+          "diameter_mm": 35
+        },
+        "boat_tail_mm": 60,
+        "boat_tail_diameter_mm": 100
+      }
+    },
+    {
+      "id": "generic_80mm_shaped_charge",
+      "name": "Generic 80 mm shaped charge (copper cone)",
+      "kind": "shaped_charge",
+      "country": "Generic",
+      "year": 1990,
+      "gun": "Illustrative charge",
+      "velocity_mps": 100,
+      "cone_diameter_mm": 80,
+      "standoff_cd": 2,
+      "published_rha_mm": 375,
+      "published_conditions": "illustrative depth for a mid-quality jet (q about 0.5)",
+      "confidence": "low",
+      "sources": [
+        "Representative of textbook descriptions of copper-lined conical charges"
+      ],
+      "notes": "Illustrative charge, not a specific munition."
+    },
+    {
+      "id": "m433_hedp",
+      "name": "40 mm M433 HEDP grenade",
+      "kind": "shaped_charge",
+      "country": "USA",
+      "year": 1970,
+      "gun": "40 mm grenade launcher (M203)",
+      "velocity_mps": 76,
+      "cone_diameter_mm": 33,
+      "standoff_cd": 1.2,
+      "published_rha_mm": 51,
+      "published_conditions": "at least 2 in of steel",
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: M433 HEDP (40 mm grenade)"
+      ],
+      "notes": "Dual-purpose grenade: small copper liner. Cone diameter and standoff are estimates."
+    },
+    {
+      "id": "bazooka_m6a3",
+      "name": "Bazooka M6A3 rocket (2.36 in)",
+      "kind": "shaped_charge",
+      "country": "USA",
+      "year": 1944,
+      "gun": "M9A1 rocket launcher",
+      "velocity_mps": 81,
+      "cone_diameter_mm": 54,
+      "standoff_cd": 1.5,
+      "published_rha_mm": 102,
+      "published_conditions": "up to 4 in",
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: Bazooka"
+      ],
+      "notes": "Earlier M6/M6A1 rockets are quoted at up to 3 in. Cone diameter and standoff are estimates."
+    },
+    {
+      "id": "piat",
+      "name": "PIAT bomb (83 mm)",
+      "kind": "shaped_charge",
+      "country": "UK",
+      "year": 1943,
+      "gun": "PIAT spigot launcher",
+      "velocity_mps": 76,
+      "cone_diameter_mm": 75,
+      "standoff_cd": 0.6,
+      "published_rha_mm": 100,
+      "published_conditions": "theoretical, about 4 in",
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: PIAT"
+      ],
+      "notes": "Short standoff and an imperfect early liner. Cone diameter and standoff are estimates."
+    },
+    {
+      "id": "panzerfaust_60",
+      "name": "Panzerfaust 60",
+      "kind": "shaped_charge",
+      "country": "Germany",
+      "year": 1944,
+      "gun": "Disposable recoilless launcher",
+      "velocity_mps": 45,
+      "cone_diameter_mm": 120,
+      "standoff_cd": 0.8,
+      "published_rha_mm": 200,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: Panzerfaust"
+      ],
+      "notes": "149 mm warhead with a wide, shallow liner. Cone diameter and standoff are estimates."
+    },
+    {
+      "id": "panzerschreck",
+      "name": "Panzerschreck RPzB.Gr. 4322 (88 mm)",
+      "kind": "shaped_charge",
+      "country": "Germany",
+      "year": 1943,
+      "gun": "RPzB 54 rocket launcher",
+      "velocity_mps": 110,
+      "cone_diameter_mm": 80,
+      "standoff_cd": 1.5,
+      "published_rha_mm": 230,
+      "published_conditions": "RHA at 90 deg to the line of fire (160 mm at 60 deg)",
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: Panzerschreck"
+      ],
+      "notes": "Cone diameter and standoff are estimates."
+    },
+    {
+      "id": "pg7v",
+      "name": "PG-7V (RPG-7, 85 mm)",
+      "kind": "shaped_charge",
+      "country": "USSR",
+      "year": 1961,
+      "gun": "RPG-7",
+      "velocity_mps": 120,
+      "cone_diameter_mm": 72,
+      "standoff_cd": 1.6,
+      "shape": {"style": "heat_rocket", "diameter_mm": 85, "length_mm": 640, "motor_diameter_mm": 40, "fins": {"span_mm": 110}, "filler": {"explosive": "comp_a5"}},
+      "published_rha_mm": 260,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: RPG-7"
+      ],
+      "notes": "Cone diameter and standoff are estimates. The rocket sustainer raises flight speed to about 300 m/s."
+    },
+    {
+      "id": "pg7vm",
+      "name": "PG-7VM (RPG-7, 70 mm)",
+      "kind": "shaped_charge",
+      "country": "USSR",
+      "year": 1969,
+      "gun": "RPG-7",
+      "velocity_mps": 140,
+      "cone_diameter_mm": 62,
+      "standoff_cd": 2.2,
+      "published_rha_mm": 300,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: RPG-7"
+      ],
+      "notes": "Smaller, more efficient liner than the PG-7V. Cone diameter and standoff are estimates."
+    },
+    {
+      "id": "pg7vs",
+      "name": "PG-7VS (RPG-7, 73 mm)",
+      "kind": "shaped_charge",
+      "country": "USSR",
+      "year": 1972,
+      "gun": "RPG-7",
+      "velocity_mps": 140,
+      "cone_diameter_mm": 65,
+      "standoff_cd": 2.5,
+      "published_rha_mm": 400,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: RPG-7"
+      ],
+      "notes": "Precision liner. Cone diameter and standoff are estimates."
+    },
+    {
+      "id": "pg7vl",
+      "name": "PG-7VL 'Luch' (RPG-7, 93 mm)",
+      "kind": "shaped_charge",
+      "country": "USSR",
+      "year": 1977,
+      "gun": "RPG-7",
+      "velocity_mps": 112,
+      "cone_diameter_mm": 85,
+      "standoff_cd": 2.2,
+      "shape": {"style": "heat_rocket", "diameter_mm": 93, "length_mm": 700, "motor_diameter_mm": 40, "fins": {"span_mm": 120}, "filler": {"explosive": "comp_a5"}},
+      "published_rha_mm": 500,
+      "published_conditions": "more than 500 mm",
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: RPG-7"
+      ],
+      "notes": "Cone diameter and standoff are estimates."
+    },
+    {
+      "id": "m72a1",
+      "name": "M72A1 LAW (66 mm)",
+      "kind": "shaped_charge",
+      "country": "USA",
+      "year": 1963,
+      "gun": "M72 disposable launcher",
+      "velocity_mps": 145,
+      "cone_diameter_mm": 58,
+      "standoff_cd": 1.5,
+      "published_rha_mm": 200,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: M72 LAW"
+      ],
+      "notes": "Cone diameter and standoff are estimates."
+    },
+    {
+      "id": "m72a2",
+      "name": "M72A2 LAW (66 mm)",
+      "kind": "shaped_charge",
+      "country": "USA",
+      "year": 1970,
+      "gun": "M72 disposable launcher",
+      "velocity_mps": 145,
+      "cone_diameter_mm": 58,
+      "standoff_cd": 2.0,
+      "published_rha_mm": 300,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: M72 LAW"
+      ],
+      "notes": "Year approximate. Cone diameter and standoff are estimates."
+    },
+    {
+      "id": "ffv551",
+      "name": "Carl Gustaf FFV 551 HEAT (84 mm)",
+      "kind": "shaped_charge",
+      "country": "Sweden",
+      "year": 1972,
+      "gun": "Carl Gustaf 84 mm recoilless rifle",
+      "velocity_mps": 255,
+      "cone_diameter_mm": 75,
+      "standoff_cd": 2.0,
+      "published_rha_mm": 400,
+      "published_conditions": "up to 400 mm",
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: Carl Gustaf 8.4 cm recoilless rifle"
+      ],
+      "notes": "Rocket-assisted projectile. Year approximate. Cone diameter and standoff are estimates."
+    },
+    {
+      "id": "malyutka_9m14p1",
+      "name": "9M14P1 Malyutka (125 mm, probe)",
+      "kind": "shaped_charge",
+      "country": "USSR",
+      "year": 1973,
+      "gun": "Wire-guided missile",
+      "velocity_mps": 115,
+      "cone_diameter_mm": 110,
+      "standoff_cd": 3.0,
+      "shape": {"style": "heat_rocket", "diameter_mm": 125, "length_mm": 860, "motor_diameter_mm": 110, "fins": {"span_mm": 393}, "filler": {"explosive": "comp_a5"}},
+      "published_rha_mm": 520,
+      "confidence": "low",
+      "sources": [
+        "Wikipedia: 9M14 Malyutka"
+      ],
+      "notes": "Stand-off probe variant. Year approximate. Cone diameter and standoff are estimates."
+    },
+    {
+      "id": "hydra70_m151",
+      "name": "Hydra 70 rocket, M151 HE warhead",
+      "kind": "he_warhead",
+      "country": "USA",
+      "year": 1980,
+      "gun": "LAU-61/LAU-68 rocket pods",
+      "velocity_mps": 600,
+      "diameter_mm": 70,
+      "length_mm": 1390,
+      "rod_material": "steel",
+      "density_kgm3": 7850,
+      "confidence": "medium",
+      "sources": [
+        "TM 9-1340-222-34, 2.75-inch rocket system (public manual)",
+        "FAS Military Analysis Network: Hydra-70"
+      ],
+      "notes": "Mk 66 motor with the M151 HE warhead and M423 point-detonating fuze. Filler: about 1.0 kg of Composition B4. Impact speed and the mass after motor burnout are estimates.",
+      "shape": {
+        "style": "he_missile",
+        "nose_length_mm": 100,
+        "warhead_length_mm": 240,
+        "case_wall_mm": 5,
+        "mass_kg": 8.2,
+        "filler": {
+          "explosive": "comp_b",
+          "length_mm": 214
+        },
+        "fuze": {
+          "type": "nose_contact"
+        },
+        "fins": {
+          "span_mm": 180,
+          "root_chord_mm": 80,
+          "tip_chord_mm": 60
+        }
+      }
+    },
+    {
+      "id": "s8of",
+      "name": "S-8OF rocket",
+      "kind": "he_warhead",
+      "country": "USSR/Russia",
+      "year": 1984,
+      "gun": "B-8 rocket pods",
+      "velocity_mps": 550,
+      "diameter_mm": 80,
+      "length_mm": 1694,
+      "rod_material": "steel",
+      "density_kgm3": 7850,
+      "confidence": "low",
+      "sources": [
+        "Rosoboronexport S-8 rocket brochure (public)",
+        "Jane's Air-Launched Weapons (public summary)"
+      ],
+      "notes": "HE-fragmentation warhead of about 9 kg. Filler: about 1.6 kg of an RDX/aluminium mix (A-IX-2), modelled with the H-6 table; filler mass, impact speed and mass after burnout are estimates.",
+      "shape": {
+        "style": "he_missile",
+        "nose_length_mm": 120,
+        "warhead_length_mm": 330,
+        "case_wall_mm": 6,
+        "mass_kg": 13.1,
+        "filler": {
+          "explosive": "h6",
+          "length_mm": 250
+        },
+        "fuze": {
+          "type": "nose_contact"
+        },
+        "fins": {
+          "span_mm": 200,
+          "root_chord_mm": 90,
+          "tip_chord_mm": 60
+        }
+      }
+    },
+    {
+      "id": "s13of",
+      "name": "S-13OF rocket",
+      "kind": "he_warhead",
+      "country": "USSR/Russia",
+      "year": 1987,
+      "gun": "B-13L rocket pods",
+      "velocity_mps": 500,
+      "diameter_mm": 122,
+      "length_mm": 3100,
+      "rod_material": "steel",
+      "density_kgm3": 7850,
+      "confidence": "low",
+      "sources": [
+        "Rosoboronexport S-13 rocket brochure (public)",
+        "Jane's Air-Launched Weapons (public summary)"
+      ],
+      "notes": "Two-stage HE-fragmentation warhead of about 33 kg. Filler: about 7 kg of an RDX/aluminium mix, modelled with the H-6 table; filler mass, impact speed and mass after burnout are estimates.",
+      "shape": {
+        "style": "he_missile",
+        "nose_length_mm": 200,
+        "warhead_length_mm": 520,
+        "case_wall_mm": 10,
+        "mass_kg": 61.0,
+        "filler": {
+          "explosive": "h6",
+          "length_mm": 487
+        },
+        "fuze": {
+          "type": "nose_contact"
+        },
+        "fins": {
+          "span_mm": 300,
+          "root_chord_mm": 140,
+          "tip_chord_mm": 100
+        }
+      }
+    },
+    {
+      "id": "agm176_griffin",
+      "name": "AGM-176 Griffin",
+      "kind": "he_warhead",
+      "country": "USA",
+      "year": 2008,
+      "gun": "Air or ground launcher",
+      "velocity_mps": 250,
+      "diameter_mm": 140,
+      "length_mm": 1090,
+      "rod_material": "steel",
+      "density_kgm3": 7850,
+      "confidence": "low",
+      "sources": [
+        "Raytheon Griffin fact sheet (public)",
+        "US Navy Fact File: Griffin"
+      ],
+      "notes": "Blast-fragmentation warhead of about 5.9 kg behind the seeker. Filler: about 1.5 kg of Composition B; the model fills the whole case cavity (about 3 kg). Impact speed and mass after burnout are estimates.",
+      "shape": {
+        "style": "he_missile",
+        "nose_material": "light_alloy",
+        "nose_length_mm": 250,
+        "warhead_length_mm": 150,
+        "case_wall_mm": 6,
+        "mass_kg": 15.5,
+        "filler": {
+          "explosive": "comp_b"
+        },
+        "fuze": {
+          "type": "nose_contact"
+        },
+        "fins": {
+          "span_mm": 300,
+          "root_chord_mm": 100,
+          "tip_chord_mm": 70
+        }
+      }
+    },
+    {
+      "id": "agm114m",
+      "name": "AGM-114M Hellfire II",
+      "kind": "he_warhead",
+      "country": "USA",
+      "year": 1998,
+      "gun": "M299 launcher",
+      "velocity_mps": 400,
+      "diameter_mm": 178,
+      "length_mm": 1630,
+      "rod_material": "steel",
+      "density_kgm3": 7850,
+      "confidence": "low",
+      "sources": [
+        "US Army Fact File: Hellfire",
+        "FAS Military Analysis Network: AGM-114 Hellfire"
+      ],
+      "notes": "Blast-fragmentation warhead behind the seeker for buildings and light vehicles. Filler: about 3.7 kg of PBXN-109, modelled with the H-6 table, filling the 120 mm steel case; the rest of the mass is the motor tube and its remaining propellant. Filler, impact speed and mass after burnout are estimates.",
+      "shape": {
+        "style": "he_missile",
+        "nose_material": "light_alloy",
+        "nose_length_mm": 350,
+        "warhead_length_mm": 120,
+        "case_wall_mm": 8,
+        "mass_kg": 45.0,
+        "filler": {
+          "explosive": "h6",
+          "length_mm": 104
+        },
+        "fuze": {
+          "type": "nose_contact"
+        },
+        "fins": {
+          "span_mm": 330,
+          "root_chord_mm": 120,
+          "tip_chord_mm": 90
+        }
+      }
+    }
+  ]
+}

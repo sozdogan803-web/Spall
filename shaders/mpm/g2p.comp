@@ -1,0 +1,452 @@
+#version 460
+// Grid to particle: gathers the velocity and its affine part, advects (with a compensated sum
+// so slow particles still move), updates the elastic deformation gradient and returns it to
+// the Johnson-Cook yield surface in principal Hencky strains, or for a ceramic to its JH-2
+// strength with fracture and comminution; an elastomer is neo-Hookean with a capped viscosity;
+// a composite is a metal-model matrix that delaminates, with tension-only fibres along the
+// plies (src/physics/mpm_material.cpp is the CPU reference).
+// A reactive material lights under a strong shock or when the detonation front of its layer
+// reaches it, then burns to gamma-law products (mpmProductsPressure). Stores the Kirchhoff
+// stress, with bulk viscosity in compression, for the next scatter.
+// A shaped-charge jet breaks up at its programmed time: its necks fail and its segments take
+// their lateral kicks.
+#include "mpm_common.glsl"
+
+layout(local_size_x = 256) in;
+
+uniform float uStrength;  // scales the yield stress (0: hydrodynamic test)
+uniform float uTime;      // s, at the end of this step
+uniform uint uStep;       // this step, counted from 1
+uniform float uJetBreakup; // s, the jet's breakup time (huge without a jet)
+
+// Programmed detonation front: the step it started in (kNoFront: none yet), the plate layer it
+// runs through, its origin in initial-position cells and its start time.
+layout(std430, binding = 5) coherent buffer Detonation {
+    uint detStep;
+    uint detLayer;
+    vec2 detOrigin;
+    float detTime;
+};
+const uint kNoFront = 0xFFFFFFFFu;
+
+// The round's fuze: two 64-bit sums (lo, hi) of round(m / uFuzeMassUnit) x round(10 x speed
+// lost), step n adding into sum n & 1 (cleared by the CPU before it); the step it triggered in
+// (kNoFront: not yet) and the time it triggered.
+layout(std430, binding = 6) coherent buffer Fuze {
+    uint fuzeAcc[4];
+    uint fuzeStep;
+    float fuzeTime;
+};
+uniform float uImpactVelocity;  // m/s, along +x
+uniform float uFuzeMassUnit;    // kg per m of depth
+uniform float uFuzeTotalUnits;  // the projectile's mass in units (0: no fuze)
+uniform float uTriggerDv;       // m/s, mean speed lost that triggers it
+uniform float uFuzeDelay;       // s, trigger to the filler lighting at uFuzeOrigin
+uniform vec2 uFuzeOrigin;       // initial-position cells
+// The burst's forward lean (MpmScene::burst*): the case alongside the charge, X0.x in uBurstSpan
+// (cells), gains uBurstTilt (m/s) along x x uBurstSweep when the detonation front, running at
+// uBurstSpeed (m/s) from uFuzeOrigin, reaches it. uBurstTilt 0: none.
+uniform float uBurstTilt;
+uniform float uBurstSweep;
+uniform float uBurstSpeed;
+uniform vec2 uBurstSpan;
+
+const float kMaxProductsLogJ = 4.6;  // products expand at most to J = 100 (negligible pressure)
+
+const float kRoomTemperature = 293.0;
+const float kTaylorQuinney = 0.9;
+const float kMinCeramicFracture = 1e-4;
+const float kViscLinear = 0.2;
+const float kViscQuadratic = 1.0;
+const float kMinFlawFactor = 0.25;
+
+float yieldStress(uint mat, float epsP, float temp) {
+    vec4 a = matParam(mat, 0u), b = matParam(mat, 1u);
+    float t = clamp((temp - kRoomTemperature) / (b.w - kRoomTemperature), 0.0, 1.0);
+    float hardening = b.x * pow(max(epsP, 0.0), b.y);
+    return uStrength * (a.w + hardening) * (1.0 - pow(t, b.z));
+}
+
+// Strength of this point of a brittle metal relative to its material's: a Weibull draw of
+// modulus 1 / invM (norm = 1 / Gamma(1 + invM): mean one) hashed from its initial position,
+// the arithmetic of mpmFlawFactor in src/physics/mpm_material.cpp.
+float flawFactor(vec2 x0, float invM, float norm) {
+    uint h = floatBitsToUint(x0.x) * 0x9E3779B1u + floatBitsToUint(x0.y) * 0x85EBCA6Bu + 0x68E31DA4u;
+    h ^= h >> 16;
+    h *= 0x7FEB352Du;
+    h ^= h >> 15;
+    h *= 0x846CA68Bu;
+    h ^= h >> 16;
+    float u = (float(h >> 9) + 0.5) / 8388608.0;
+    return max(pow(-log(1.0 - u), invM) * norm, kMinFlawFactor);
+}
+
+// A ceramic's JH-2 strength (mpmCeramicStrength) at pressure p with fracture D, from
+// m4 = (model, sigma_HEL, P_HEL, T), m5 = (A, N, B, M) and m6.x = the fractured cap.
+float ceramicStrength(vec4 m4, vec4 m5, vec4 m6, float pressure, float D) {
+    float intact = pressure + m4.w > 0.0 ? m4.y * m5.x * pow((pressure + m4.w) / m4.z, m5.y) : 0.0;
+    float fractured = pressure > 0.0 ? min(m4.y * m5.z * pow(pressure / m4.z, m5.w), m6.x) : 0.0;
+    return uStrength * (intact - clamp(D, 0.0, 1.0) * (intact - fractured));
+}
+
+// Radial return of the deviatoric strains onto von Mises `strength`; returns the plastic strain.
+float radialReturn(inout vec3 dev, float G, float strength) {
+    float norm = length(dev);
+    float trial = sqrt(1.5) * 2.0 * G * norm;
+    if (trial <= strength || norm <= 0.0) return 0.0;
+    float target = strength / (sqrt(1.5) * 2.0 * G);
+    dev *= target / norm;
+    return sqrt(2.0 / 3.0) * (norm - target);
+}
+
+void main() {
+    uint id = gl_GlobalInvocationID.x;
+    // The fuze triggers once the previous step's mass-weighted mean speed loss reaches uTriggerDv;
+    // the filler reads it from the next step on.
+    if (id == 0u && uBase == 0u && uFuzeTotalUnits > 0.0 && fuzeStep == kNoFront) {
+        uint k = (uStep - 1u) & 1u;
+        float lost = float(fuzeAcc[2u * k + 1u]) * 4294967296.0 + float(fuzeAcc[2u * k]);
+        if (lost >= uTriggerDv * 10.0 * uFuzeTotalUnits && atomicCompSwap(fuzeStep, kNoFront, uStep) == kNoFront)
+            fuzeTime = uTime - uDt;
+    }
+    if (id >= uCount) return;
+    Particle p = particles[id];
+    // Off the grid it flies on ballistically, still drawn, so nothing vanishes at the edge.
+    if ((p.flags & (FLAG_INACTIVE | FLAG_BAD)) == FLAG_INACTIVE) {
+        p.x += p.v * (uDt / uDx);
+        particles[id] = p;
+        return;
+    }
+    if ((p.flags & (FLAG_INACTIVE | FLAG_ANCHORED)) != 0u) return;
+
+    ivec2 base = ivec2(floor(p.x - 0.5));
+    vec2 fx = p.x - vec2(base);
+    vec2 w[3];
+    weights(fx, w);
+    vec2 v = vec2(0.0);
+    mat2 B = mat2(0.0);
+    for (int i = 0; i < 3; ++i)
+        for (int j = 0; j < 3; ++j) {
+            ivec2 node = base + ivec2(i, j);
+            if (any(lessThan(node, ivec2(0))) || any(greaterThanEqual(node, uN))) continue;
+            float weight = w[i].x * w[j].y;
+            vec2 gv = gridVelocity[nodeIndex(node)];
+            vec2 dpos = (vec2(i, j) - fx) * uDx;
+            v += weight * gv;
+            B += weight * outerProduct(gv, dpos);  // B[col][row] = gv[row] dpos[col]
+        }
+    mat2 C = B * (4.0 / (uDx * uDx));
+
+    // Advection with Fast2Sum compensation.
+    precise vec2 d = v * (uDt / uDx) + p.xlo;
+    precise vec2 s = p.x + d;
+    precise vec2 lo = d - (s - p.x);
+    p.x = s;
+    p.xlo = lo;
+    p.v = v;
+    p.C = vec4(C[0][0], C[1][0], C[0][1], C[1][1]);
+    if ((p.flags & (FLAG_JET | FLAG_JET_BROKEN)) == FLAG_JET && uTime >= uJetBreakup) {
+        p.flags |= FLAG_JET_BROKEN;
+        if ((p.flags & FLAG_FAILED) == 0u) {
+            if ((p.flags & FLAG_JET_NECK) != 0u) p.flags |= FLAG_FAILED;
+            p.v.y += p.kick;
+        }
+    }
+    // Taylor's tilt: the case walls beside the charge are turned towards the way the detonation
+    // sweeps. The radial push is the products' own pressure; only the axial lean is added here.
+    if (uBurstTilt > 0.0 && (p.flags & (FLAG_PROJECTILE | FLAG_FITTING | FLAG_FILLER | FLAG_BURST_KICKED)) == FLAG_PROJECTILE &&
+        fuzeStep < uStep && p.X0.x >= uBurstSpan.x && p.X0.x <= uBurstSpan.y &&
+        uTime >= fuzeTime + uFuzeDelay + length(p.X0 - uFuzeOrigin) * uDx / uBurstSpeed) {
+        p.flags |= FLAG_BURST_KICKED;
+        p.v.x += uBurstSweep * uBurstTilt;
+    }
+
+    // Elastic predictor.
+    mat2 Fe = mat2(p.F.x, p.F.z, p.F.y, p.F.w);
+    Fe = (mat2(1.0) + uDt * C) * Fe;
+
+    // Principal stretches of b = Fe Fe^T.
+    float b00 = Fe[0][0] * Fe[0][0] + Fe[1][0] * Fe[1][0];
+    float b11 = Fe[0][1] * Fe[0][1] + Fe[1][1] * Fe[1][1];
+    float b01 = Fe[0][0] * Fe[0][1] + Fe[1][0] * Fe[1][1];
+    float half_ = 0.5 * (b00 - b11);
+    float r = sqrt(half_ * half_ + b01 * b01);
+    float mean = 0.5 * (b00 + b11);
+    float l1 = max(mean + r, 1e-12), l2 = max(mean - r, 1e-12);
+    float th = 0.5 * atan(2.0 * b01, b00 - b11);
+    vec2 u1 = vec2(cos(th), sin(th)), u2 = vec2(-u1.y, u1.x);
+    vec3 e = vec3(0.5 * log(l1), 0.5 * log(l2), log(max(p.Fzz, 1e-6)));
+    vec3 eOld = e;
+
+    uint mat = p.mat;
+    vec4 m0 = matParam(mat, 0u), m1 = matParam(mat, 1u), m2 = matParam(mat, 2u);
+    vec4 m3 = matParam(mat, 3u);
+    float G = m0.y, K = m0.z;
+    float tr = e.x + e.y + e.z;
+    vec3 dev = e - vec3(tr / 3.0);
+
+    // Initiation: the solid's pressure (bulk viscosity left out, so impact ringing does not
+    // count) passes the initiation pressure, or the front of this layer has arrived. The first
+    // particle to light starts the front; the others read it from the next step on.
+    // A filler lights only from its fuze: a front from uFuzeOrigin once the delay has run.
+    if ((p.flags & (FLAG_FILLER | FLAG_REACTED)) == FLAG_FILLER) {
+        if (fuzeStep < uStep) {
+            float arrival = fuzeTime + uFuzeDelay + length(p.X0 - uFuzeOrigin) * uDx / m3.x;
+            if (uTime >= arrival) {
+                p.flags |= FLAG_REACTED;
+                p.tLight = arrival;
+            }
+        }
+    } else if (m3.x > 0.0 && (p.flags & FLAG_REACTED) == 0u) {
+        uint layer = (p.flags >> LAYER_SHIFT) & 0xFFu;
+        if (-K * tr > m3.w) {
+            p.flags |= FLAG_REACTED;
+            p.tLight = uTime;
+            if (atomicCompSwap(detStep, kNoFront, uStep) == kNoFront) {
+                detLayer = layer;
+                detOrigin = p.X0;
+                detTime = uTime;
+            }
+        } else if (detStep < uStep && detLayer == layer) {
+            float arrival = detTime + length(p.X0 - detOrigin) * uDx / m3.x;
+            if (uTime >= arrival) {
+                p.flags |= FLAG_REACTED;
+                p.tLight = arrival;
+            }
+        }
+    }
+
+    bool reacted = (p.flags & FLAG_REACTED) != 0u;
+    // A plate's mount band (next to its held edge) yields but never fails, cracks or splits.
+    bool mount = (p.flags & FLAG_MOUNT) != 0u;
+    float productsP = 0.0;
+    if (reacted) {
+        // Burns over two cells of front travel to gamma-law products (mpmProductsPressure), plus
+        // the unreacted solid's compression. A fluid: no shear, no tension.
+        p.burn = clamp(m3.x * (uTime - p.tLight) / (2.0 * uDx), p.burn, 1.0);
+        dev = vec3(0.0);
+        tr = min(tr, kMaxProductsLogJ);
+        productsP = p.burn * (m3.z - 1.0) * m0.x * m3.y * exp(-m3.z * tr) + (1.0 - p.burn) * K * max(-tr, 0.0);
+        // Display only (mpmProductsTemperature): T ~ J^(-1/4), from the uncapped expansion.
+        p.temp = kRoomTemperature + p.burn * m3.y / m2.x * exp(-0.25 * (e.x + e.y + e.z));
+    } else if (matModel(mat) == MODEL_CERAMIC) {
+        // JH-2 return map (mpmReturnMap's ceramic branch): plastic strain grows the fracture D,
+        // tension past T (1 - D) sets D = 1, and at D = 1 the ceramic is comminuted (granular:
+        // the fractured strength, no tension). Melting fails it.
+        vec4 m4 = matParam(mat, 4u), m5 = matParam(mat, 5u), m6 = matParam(mat, 6u);
+        bool failed = (p.flags & FLAG_FAILED) != 0u;
+        if (!failed) {
+            bool comminuted = (p.flags & FLAG_COMMINUTED) != 0u;
+            if (comminuted) tr = min(tr, 0.0);
+            if (!mount && -K * tr < -m4.w * (1.0 - p.fracture)) p.fracture = 1.0;
+            if (p.fracture >= 1.0) {
+                comminuted = true;
+                tr = min(tr, 0.0);
+            }
+            float pc = -K * tr;
+            float strength = ceramicStrength(m4, m5, m6, pc, p.fracture);
+            float dp = radialReturn(dev, G, strength);
+            if (dp > 0.0) {
+                p.epsP += dp;
+                p.temp += kTaylorQuinney * strength * dp / (m0.x * m2.x);
+                if (!comminuted && !mount) {
+                    float s = max(pc + m4.w, 0.0) / m4.z;
+                    float ef = max(m6.y * pow(max(s, 1e-12), m6.z), kMinCeramicFracture);
+                    p.fracture = min(p.fracture + dp / ef, 1.0);
+                    comminuted = p.fracture >= 1.0;
+                }
+            }
+            if (comminuted) p.flags |= FLAG_COMMINUTED;
+            if (!mount && p.temp >= m1.w) p.flags |= FLAG_FAIL_MELT;
+            failed = (p.flags & FLAG_FAIL_MELT) != 0u;
+        }
+        if (failed) {
+            dev = vec3(0.0);
+            tr = min(tr, 0.0);
+            p.flags |= FLAG_FAILED;
+        }
+    } else if (matModel(mat) == MODEL_ELASTOMER) {
+        // No plasticity (mpmReturnMap's elastomer branch): fails past its stretch limit, in
+        // tension past the spall stress, or hot enough to decompose.
+        bool failed = (p.flags & FLAG_FAILED) != 0u;
+        if (!failed && !mount) {
+            if (exp(max(e.x, max(e.y, e.z))) - 1.0 > m2.y) p.flags |= FLAG_FAIL_STRAIN;
+            else if (K * tr > m2.z) p.flags |= FLAG_FAIL_SPALL;
+            else if (p.temp >= m1.w) p.flags |= FLAG_FAIL_MELT;
+            failed = (p.flags & (FLAG_FAIL_STRAIN | FLAG_FAIL_SPALL | FLAG_FAIL_MELT)) != 0u;
+        }
+        if (failed) {
+            dev = vec3(0.0);
+            tr = min(tr, 0.0);
+            p.flags |= FLAG_FAILED;
+        }
+    } else if (matModel(mat) == MODEL_COMPOSITE) {
+        // The fibre vector rides with the material (mpmFibresBreak, mpmDelaminates and
+        // mpmReturnMap's composite branch). The matrix takes the metal return map; its failure
+        // strain, its spall stress, tension across the plies or shear on them delaminate it.
+        // Delaminated it is a stack of sheets: the elastic strain is taken in the ply frame
+        // without the ply shear (the sheets slide), each sheet still yields like the matrix, and
+        // tension across the plies is relaxed away (they open); its fibres still carry tension.
+        // Melted, or delaminated with broken fibres, it has failed.
+        vec4 m5 = matParam(mat, 5u);
+        p.fibre = (mat2(1.0) + uDt * C) * p.fibre;
+        float stretch = max(length(p.fibre), 1e-12);
+        if (!mount && log(stretch) > m5.y) p.flags |= FLAG_FIBRE_BROKEN;
+        vec2 fh = p.fibre / stretch, nh = vec2(-fh.y, fh.x);
+        bool failed = (p.flags & FLAG_FAILED) != 0u;
+        bool delam = (p.flags & FLAG_DELAMINATED) != 0u;
+        if (!failed && !delam) {
+            float yield = yieldStress(mat, p.epsP, p.temp);
+            float dp = radialReturn(dev, G, yield);
+            if (dp > 0.0) {
+                p.epsP += dp;
+                p.temp += kTaylorQuinney * yield * dp / (m0.x * m2.x);
+            }
+            // The returned matrix stress across the plies and on them (Cauchy).
+            vec2 sp2 = 2.0 * G * dev.xy + vec2(K * tr);
+            vec2 a = vec2(dot(u1, fh), dot(u2, fh)), c = vec2(dot(u1, nh), dot(u2, nh));
+            float J0 = exp(tr);
+            float across = dot(sp2, c * c) / J0, shear = dot(sp2, a * c) / J0;
+            if (!mount && (p.epsP > m2.y || K * tr > m2.z || across > m5.z || abs(shear) > m5.w)) delam = true;
+            if (delam) p.flags |= FLAG_DELAMINATED;
+        }
+        if (!mount && p.temp >= m1.w) p.flags |= FLAG_FAIL_MELT;
+        failed = failed || (p.flags & FLAG_FAIL_MELT) != 0u || (delam && (p.flags & FLAG_FIBRE_BROKEN) != 0u);
+        if (!failed && delam) {
+            // Into the ply frame: Fe loses its elastic stretch, which is rebuilt below from the
+            // strain along the fibres and across the plies.
+            vec3 eNow = dev + vec3(tr / 3.0);
+            mat2 U0 = mat2(u1, u2);
+            mat2 E = U0 * mat2(eNow.x, 0.0, 0.0, eNow.y) * transpose(U0);
+            Fe = U0 * mat2(exp(-eOld.x), 0.0, 0.0, exp(-eOld.y)) * transpose(U0) * Fe;
+            eOld.xy = vec2(0.0);
+            u1 = fh;
+            u2 = nh;
+            e = vec3(dot(fh, E * fh), dot(nh, E * nh), eNow.z);
+            tr = e.x + e.y + e.z;
+            dev = e - vec3(tr / 3.0);
+            float yield = yieldStress(mat, p.epsP, p.temp);
+            float dp = radialReturn(dev, G, yield);
+            if (dp > 0.0) {
+                p.epsP += dp;
+                p.temp += kTaylorQuinney * yield * dp / (m0.x * m2.x);
+            }
+            // Open: no tension across the plies (2 G e_nn + (K - 2 G / 3) tr = 0).
+            e = dev + vec3(tr / 3.0);
+            if (2.0 * G * dev.y + K * tr > 0.0) {
+                e.y = -(K - 2.0 * G / 3.0) * (e.x + e.z) / (K + 4.0 * G / 3.0);
+                tr = e.x + e.y + e.z;
+                dev = e - vec3(tr / 3.0);
+            }
+        }
+        if (failed) {
+            dev = vec3(0.0);
+            tr = min(tr, 0.0);
+            p.flags |= FLAG_FAILED;
+        }
+    } else {
+        // Return map (mpmReturnMap).
+        bool failed = (p.flags & FLAG_FAILED) != 0u;
+        if (!failed) {
+            float yield = yieldStress(mat, p.epsP, p.temp);
+            float dp = radialReturn(dev, G, yield);
+            if (dp > 0.0) {
+                p.epsP += dp;
+                p.temp += kTaylorQuinney * yield * dp / (m0.x * m2.x);
+            }
+            float meanStress = K * tr;
+            if (!mount) {
+                vec4 m5 = matParam(mat, 5u);  // brittle: (crack strength, 1 / modulus, 1 / Gamma(1 + 1 / modulus), -)
+                if (p.epsP > m2.y) p.flags |= FLAG_FAIL_STRAIN;
+                else if (meanStress > m2.z) p.flags |= FLAG_FAIL_SPALL;
+                else if (m5.x > 0.0 && 2.0 * G * max(dev.x, max(dev.y, dev.z)) + meanStress >
+                                           uStrength * m5.x * flawFactor(p.X0, m5.y, m5.z))
+                    p.flags |= FLAG_FAIL_SPALL;  // a crack across the largest principal tension
+                else if (p.temp >= m1.w) p.flags |= FLAG_FAIL_MELT;
+            }
+            failed = (p.flags & (FLAG_FAIL_STRAIN | FLAG_FAIL_SPALL | FLAG_FAIL_MELT)) != 0u;
+        }
+        if (failed) {
+            dev = vec3(0.0);
+            tr = min(tr, 0.0);
+            p.flags |= FLAG_FAILED;
+        }
+    }
+    e = dev + vec3(tr / 3.0);
+
+    // Fe_new = U diag(exp(e_new - e_old)) U^T Fe.
+    vec2 ratio = exp(e.xy - eOld.xy);
+    mat2 U = mat2(u1, u2);
+    mat2 Fn = U * mat2(ratio.x, 0.0, 0.0, ratio.y) * transpose(U) * Fe;
+    p.F = vec4(Fn[0][0], Fn[1][0], Fn[0][1], Fn[1][1]);
+    p.Fzz = exp(e.z);
+
+    // Kirchhoff stress in the principal frame, rotated back.
+    float J = exp(tr);
+    bool elastomer = !reacted && matModel(mat) == MODEL_ELASTOMER;
+    bool composite = !reacted && matModel(mat) == MODEL_COMPOSITE;
+    vec3 sp;
+    if (reacted) {
+        sp = vec3(-J * productsP);
+    } else if (elastomer) {
+        // Neo-Hookean (mpmElastomerKirchhoff).
+        vec3 l2 = exp(2.0 * e);
+        sp = G * exp(-2.0 / 3.0 * tr) * (l2 - vec3((l2.x + l2.y + l2.z) / 3.0)) + vec3(K * tr);
+    } else {
+        sp = 2.0 * G * (e - vec3(tr / 3.0)) + vec3(K * tr);
+    }
+    mat2 T = U * mat2(sp.x, 0.0, 0.0, sp.y) * transpose(U);
+    // An intact elastomer's viscous stress (mpmViscousStress), (xx, yy, xy, zz), whose work
+    // heats it; a laminate's fibre stress (mpmFibreStress) while its fibres hold.
+    vec4 extra = vec4(0.0);
+    if (composite && (p.flags & (FLAG_FAILED | FLAG_FIBRE_BROKEN)) == 0u) {
+        float stretch = length(p.fibre);
+        if (stretch > 1.0) {
+            float s = matParam(mat, 5u).x * log(stretch) / (stretch * stretch);
+            extra = s * vec4(p.fibre.x * p.fibre.x, p.fibre.y * p.fibre.y, p.fibre.x * p.fibre.y, 0.0);
+        }
+    }
+    if (elastomer && (p.flags & FLAG_FAILED) == 0u) {
+        vec4 m5 = matParam(mat, 5u);
+        float third = (C[0][0] + C[1][1]) / 3.0;
+        vec4 dd = vec4(C[0][0] - third, C[1][1] - third, 0.5 * (C[1][0] + C[0][1]), -third);
+        extra = 2.0 * m5.x * J * dd;
+        float vm = sqrt(1.5 * (extra.x * extra.x + extra.y * extra.y + extra.w * extra.w + 2.0 * extra.z * extra.z));
+        if (m5.y > 0.0 && vm > m5.y) extra *= m5.y / vm;
+        p.temp += dot(extra, dd * vec4(1.0, 1.0, 2.0, 1.0)) * uDt / (m0.x * m2.x);
+    }
+    float q = 0.0;
+    float div = C[0][0] + C[1][1];
+    if (div < 0.0) {
+        float rho = m0.x / max(J, 1e-3);
+        float c = reacted ? max(m2.w, sqrt(m3.z * productsP / rho)) : m2.w;
+        q = rho * (kViscLinear * c * uDx * -div + kViscQuadratic * uDx * uDx * div * div);
+    }
+    p.tau = vec4(T[0][0] - J * q, T[1][1] - J * q, T[1][0], sp.z - J * q) + extra;
+    if (elastomer || composite) {
+        vec4 t = vec4(T[0][0], T[1][1], T[1][0], sp.z) + extra;
+        vec3 a3 = vec3(t.x - t.y, t.y - t.w, t.w - t.x);
+        p.stress = sqrt(0.5 * dot(a3, a3) + 3.0 * t.z * t.z) / J;
+    } else {
+        vec3 a3 = vec3(sp.x - sp.y, sp.y - sp.z, sp.z - sp.x);
+        p.stress = sqrt(0.5 * dot(a3, a3)) / J;
+    }
+    p.pressure = -(sp.x + sp.y + sp.z) / (3.0 * J);
+
+    if (!finite2(p.x) || !finite2(p.v) || !finite4(p.F) || !finite4(p.tau)) {
+        p.flags |= FLAG_INACTIVE | FLAG_BAD;
+        p.v = vec2(0.0);
+    } else if (any(lessThan(p.x, vec2(2.0))) || any(greaterThan(p.x, vec2(uN - 3)))) {
+        p.flags |= FLAG_INACTIVE;
+    }
+    // The fuze's sum for this step: the projectile's mass-weighted speed lost, in units.
+    if (uFuzeTotalUnits > 0.0 && (p.flags & (FLAG_PROJECTILE | FLAG_BAD | FLAG_INACTIVE)) == FLAG_PROJECTILE) {
+        uint add = uint(round(p.mass / uFuzeMassUnit)) * uint(round(10.0 * max(uImpactVelocity - p.v.x, 0.0)));
+        if (add > 0u) {
+            uint k = uStep & 1u;
+            uint old = atomicAdd(fuzeAcc[2u * k], add);
+            if (old > 0xFFFFFFFFu - add) atomicAdd(fuzeAcc[2u * k + 1u], 1u);
+        }
+    }
+    particles[id] = p;
+}

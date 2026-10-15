@@ -1,0 +1,9 @@
+/build/
+/out/
+/screenshots/
+spall.ini
+spall.log
+imgui.ini
+*.pyc
+__pycache__/
+/recordings/

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="A rod meeting a plate">
+  <title>Spall, side view</title>
+  <rect width="256" height="256" rx="56" fill="#161a22"/>
+  <path d="M92 26H156V90L120 128L156 166V230H92Z" fill="#aab4c2"/>
+  <path d="M92 26H112V230H92Z" fill="#dfe5ee"/>
+  <path d="M12 112H108L128 128L108 144H12Z" fill="#ff8a1f"/>
+  <path d="M12 112H108L118 120H12Z" fill="#ffc24d"/>
+  <path d="M176 92L224 64L240 142Z" fill="#cfd6e0"/>
+  <path d="M224 64L240 142L214 118Z" fill="#8b96a6"/>
+  <path d="M176 92L224 64L206 100Z" fill="#f4f7fb"/>
+  <path d="M196 182L214 170L218 194Z" fill="#ff8a1f"/>
+  <path d="M170 196L184 188L186 204Z" fill="#ffc24d"/>
+  <path d="M232 40L244 34L242 50Z" fill="#ffc24d"/>
+</svg>

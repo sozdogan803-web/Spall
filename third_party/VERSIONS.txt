@@ -1,0 +1,6 @@
+Third-party code vendored into this repository (copied, unmodified).
+
+Dear ImGui  v1.92.9   https://github.com/ocornut/imgui   commit 01380c579715e62fb9a8d6ec0502c4ea83bfde6e   MIT licence (imgui/LICENSE.txt)
+  Files: core sources + backends/imgui_impl_glfw.*, backends/imgui_impl_opengl3.* (+ its loader header)
+GLFW        3.5.1     https://github.com/glfw/glfw       commit d9d6f0f1f967807ffade6598ea9a631ebaf37a56   zlib/libpng licence (glfw/LICENSE.md)
+  Files: include/, src/ (only the Win32 + WGL backend files are compiled by build.bat)

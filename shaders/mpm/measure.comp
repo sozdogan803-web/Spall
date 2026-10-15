@@ -1,0 +1,92 @@
+#version 460
+// Per-workgroup partial figures of the deformation simulation, reduced on the CPU. "Body" is
+// the penetrator itself (projectile without a dart's fittings):
+//   s0 = (nose max x, tail min x, intact count, sum vx) of the intact body, cells / m/s
+//   s1 = (momentum x, momentum y, retired non-finite count, max speed) of the active particles
+//   s2 = (failed plate particles, max temperature, max von Mises, max plastic strain)
+//   s3 = (furthest x of any body material, failed included; body particles failed by plastic
+//         strain, by spall, by melting)
+//   s4 = (reacted particles, fastest intact inert plate material, comminuted, delaminated)
+//   s5 = (fibre-broken particles, fastest vx of any jet material (failed included), broken jet
+//         particles, lit filler particles)
+#include "mpm_common.glsl"
+
+layout(local_size_x = 256) in;
+
+layout(std430, binding = 4) writeonly buffer Partials { vec4 partials[]; };
+
+shared vec4 a0[256], a1[256], a2[256], a3[256], a4[256], a5[256];
+
+void main() {
+    uint id = gl_GlobalInvocationID.x;
+    uint lane = gl_LocalInvocationIndex;
+    vec4 s0 = vec4(-1e30, 1e30, 0.0, 0.0), s1 = vec4(0.0), s2 = vec4(0.0), s3 = vec4(-1e30, 0.0, 0.0, 0.0);
+    vec4 s4 = vec4(0.0), s5 = vec4(0.0, -1e30, 0.0, 0.0);
+    if (id < uCount) {
+        Particle p = particles[id];
+        if ((p.flags & FLAG_BAD) != 0u) s1.z = 1.0;
+        if ((p.flags & FLAG_REACTED) != 0u) s4.x = 1.0;
+        if ((p.flags & FLAG_COMMINUTED) != 0u) s4.z = 1.0;
+        if ((p.flags & FLAG_DELAMINATED) != 0u) s4.w = 1.0;
+        if ((p.flags & FLAG_FIBRE_BROKEN) != 0u) s5.x = 1.0;
+        if ((p.flags & FLAG_JET_BROKEN) != 0u) s5.z = 1.0;
+        if ((p.flags & (FLAG_FILLER | FLAG_REACTED)) == (FLAG_FILLER | FLAG_REACTED)) s5.w = 1.0;
+        if ((p.flags & FLAG_INACTIVE) == 0u) {
+            s1.xy = p.mass * p.v;
+            s1.w = length(p.v);
+            bool failed = (p.flags & FLAG_FAILED) != 0u;
+            bool plate = (p.flags & FLAG_PROJECTILE) == 0u;
+            bool body = !plate && (p.flags & FLAG_FITTING) == 0u;
+            if (body && !failed) s0 = vec4(p.x.x, p.x.x, 1.0, p.v.x);
+            if (plate && failed) s2.x = 1.0;
+            if (body) {
+                s3.x = p.x.x;
+                if ((p.flags & FLAG_FAIL_STRAIN) != 0u) s3.y = 1.0;
+                if ((p.flags & FLAG_FAIL_SPALL) != 0u) s3.z = 1.0;
+                if ((p.flags & FLAG_FAIL_MELT) != 0u) s3.w = 1.0;
+            }
+            s2.yzw = vec3(p.temp, p.stress, p.epsP);
+            if ((p.flags & FLAG_JET) != 0u) s5.y = p.v.x;
+            bool inert = matParam(p.mat, 3u).x <= 0.0;
+            if (plate && inert && !failed) s4.y = length(p.v);
+        }
+    }
+    a0[lane] = s0;
+    a1[lane] = s1;
+    a2[lane] = s2;
+    a3[lane] = s3;
+    a4[lane] = s4;
+    a5[lane] = s5;
+    barrier();
+    for (uint stride = 128u; stride > 0u; stride >>= 1) {
+        if (lane < stride) {
+            vec4 x = a0[lane], y = a0[lane + stride];
+            a0[lane] = vec4(max(x.x, y.x), min(x.y, y.y), x.z + y.z, x.w + y.w);
+            x = a1[lane];
+            y = a1[lane + stride];
+            a1[lane] = vec4(x.xyz + y.xyz, max(x.w, y.w));
+            x = a2[lane];
+            y = a2[lane + stride];
+            a2[lane] = vec4(x.x + y.x, max(x.yzw, y.yzw));
+            x = a3[lane];
+            y = a3[lane + stride];
+            a3[lane] = vec4(max(x.x, y.x), x.yzw + y.yzw);
+            x = a4[lane];
+            y = a4[lane + stride];
+            a4[lane] = vec4(x.x + y.x, max(x.y, y.y), x.zw + y.zw);
+            x = a5[lane];
+            y = a5[lane + stride];
+            a5[lane] = vec4(x.x + y.x, max(x.y, y.y), x.zw + y.zw);
+        }
+        barrier();
+    }
+    if (lane == 0u) {
+        uint g = ((uBase >> 8u) + gl_WorkGroupID.x) * 6u;
+        partials[g + 0u] = a0[0];
+        partials[g + 1u] = a1[0];
+        partials[g + 2u] = a2[0];
+        partials[g + 3u] = a3[0];
+        partials[g + 4u] = a4[0];
+        partials[g + 5u] = a5[0];
+    }
+}

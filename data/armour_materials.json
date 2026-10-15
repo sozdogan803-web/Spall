@@ -1,0 +1,549 @@
+{
+  "schema": 1,
+  "materials": [
+    {
+      "id": "rha",
+      "name": "RHA (rolled homogeneous armour, ~300 BHN)",
+      "group": "steel",
+      "density_kgm3": 7850,
+      "hardness_bhn": 300,
+      "ke_efficiency": 1.0,
+      "color": "#8b939c",
+      "mpm": {"shear_gpa": 77.5, "bulk_gpa": 159, "yield_gpa": 1, "hardening_gpa": 0.5, "hardening_exp": 0.26, "softening_exp": 1.03, "melt_k": 1793, "heat_jkgk": 477, "failure_strain": 1.2, "spall_gpa": 3},
+      "confidence": "medium",
+      "sources": [
+        "Anderson & Walker (1991), Int. J. Impact Eng. 11:481",
+        "Lanz & Odermatt (2000), Penetration limits of conventional large caliber anti tank guns"
+      ],
+      "notes": "Reference material: all 'mm RHA' figures are equivalent thicknesses of this plate. Tate resistance follows from hardness."
+    },
+    {
+      "id": "mild_steel",
+      "name": "Mild structural steel (~150 BHN)",
+      "group": "steel",
+      "density_kgm3": 7850,
+      "hardness_bhn": 150,
+      "ke_efficiency": 0.75,
+      "color": "#a0a4a8",
+      "mpm": {"shear_gpa": 80, "bulk_gpa": 160, "yield_gpa": 0.35, "hardening_gpa": 0.275, "hardening_exp": 0.36, "softening_exp": 1, "melt_k": 1793, "heat_jkgk": 477, "failure_strain": 2, "spall_gpa": 1.5},
+      "confidence": "low",
+      "sources": [
+        "Rosenberg & Dekel (2016), Terminal Ballistics, 2nd ed."
+      ],
+      "notes": "Ship plate, girders, boiler plate. Soft steel stops markedly less than armour steel of the same thickness."
+    },
+    {
+      "id": "cast_armour",
+      "name": "Cast armour steel (~250 BHN)",
+      "group": "steel",
+      "density_kgm3": 7800,
+      "hardness_bhn": 250,
+      "ke_efficiency": 0.9,
+      "color": "#7f8378",
+      "mpm": {"shear_gpa": 78, "bulk_gpa": 158, "yield_gpa": 0.82, "hardening_gpa": 0.5, "hardening_exp": 0.26, "softening_exp": 1.03, "melt_k": 1780, "heat_jkgk": 477, "failure_strain": 1, "spall_gpa": 2},
+      "confidence": "low",
+      "sources": [
+        "Rosenberg & Dekel (2016), Terminal Ballistics, 2nd ed."
+      ],
+      "notes": "Cast turret-style steel; typically 5-15 % less effective than rolled plate against kinetic rounds."
+    },
+    {
+      "id": "hha",
+      "name": "High-hardness armour steel (~500 BHN)",
+      "group": "steel",
+      "density_kgm3": 7850,
+      "hardness_bhn": 500,
+      "ke_efficiency": 1.15,
+      "color": "#6c7a89",
+      "mpm": {"shear_gpa": 78, "bulk_gpa": 160, "yield_gpa": 1.65, "hardening_gpa": 0.6, "hardening_exp": 0.2, "softening_exp": 1.03, "melt_k": 1793, "heat_jkgk": 477, "failure_strain": 0.6, "spall_gpa": 3.5},
+      "confidence": "low",
+      "sources": [
+        "MIL-DTL-46100 (high-hardness armor plate, public specification)",
+        "Rosenberg & Dekel (2016), Terminal Ballistics, 2nd ed."
+      ],
+      "notes": "Better than RHA against small and medium calibre AP; brittle and prone to cracking against large shot (not modelled)."
+    },
+    {
+      "id": "uhh",
+      "name": "Ultra-high-hardness steel (~600 BHN)",
+      "group": "steel",
+      "density_kgm3": 7850,
+      "hardness_bhn": 600,
+      "ke_efficiency": 1.3,
+      "color": "#5d6b7e",
+      "mpm": {"shear_gpa": 78, "bulk_gpa": 160, "yield_gpa": 2, "hardening_gpa": 0.5, "hardening_exp": 0.15, "softening_exp": 1.03, "melt_k": 1793, "heat_jkgk": 477, "failure_strain": 0.35, "spall_gpa": 3.8},
+      "confidence": "low",
+      "sources": [
+        "MIL-DTL-32332 (ultra-high-hardness armor, public specification)"
+      ],
+      "notes": "Mostly used as thin appliqué and in spaced arrays. Outside the hardness range of the long-rod calibration."
+    },
+    {
+      "id": "al5083",
+      "name": "Aluminium alloy 5083",
+      "group": "light_metal",
+      "density_kgm3": 2660,
+      "hardness_bhn": 80,
+      "resistance_gpa": 1.7,
+      "ke_efficiency": 0.9,
+      "color": "#c3cbd3",
+      "mpm": {"shear_gpa": 26.9, "bulk_gpa": 70, "yield_gpa": 0.167, "hardening_gpa": 0.596, "hardening_exp": 0.551, "softening_exp": 0.859, "melt_k": 893, "heat_jkgk": 900, "failure_strain": 1, "spall_gpa": 1},
+      "confidence": "low",
+      "sources": [
+        "MIL-DTL-46027 (aluminium armor plate, public specification)",
+        "Rosenberg & Dekel (2016), Terminal Ballistics, 2nd ed."
+      ],
+      "notes": "Weldable armour aluminium. About three times as thick as RHA for the same mass."
+    },
+    {
+      "id": "al7039",
+      "name": "Aluminium alloy 7039",
+      "group": "light_metal",
+      "density_kgm3": 2780,
+      "hardness_bhn": 130,
+      "resistance_gpa": 2.4,
+      "ke_efficiency": 1.0,
+      "color": "#b6c0c9",
+      "mpm": {"shear_gpa": 26.9, "bulk_gpa": 72, "yield_gpa": 0.337, "hardening_gpa": 0.343, "hardening_exp": 0.41, "softening_exp": 1, "melt_k": 877, "heat_jkgk": 880, "failure_strain": 0.6, "spall_gpa": 1.2},
+      "confidence": "low",
+      "sources": [
+        "MIL-DTL-46063 (aluminium armor plate, public specification)"
+      ],
+      "notes": "Harder, stronger armour aluminium; prone to stress-corrosion cracking."
+    },
+    {
+      "id": "al2024",
+      "name": "Aluminium alloy 2024-T3 (witness sheet)",
+      "group": "light_metal",
+      "density_kgm3": 2780,
+      "hardness_bhn": 120,
+      "resistance_gpa": 2.0,
+      "ke_efficiency": 0.9,
+      "color": "#d3d8dd",
+      "mpm": {"shear_gpa": 27.5, "bulk_gpa": 71.6, "yield_gpa": 0.369, "hardening_gpa": 0.684, "hardening_exp": 0.73, "softening_exp": 1.7, "melt_k": 775, "heat_jkgk": 875, "failure_strain": 0.6, "spall_gpa": 1.1},
+      "confidence": "low",
+      "sources": [
+        "Lesuer (2000), DOT/FAA/AR-00/25 (Johnson-Cook constants for 2024-T3)",
+        "Rosenberg & Dekel (2016), Terminal Ballistics, 2nd ed."
+      ],
+      "notes": "The thin aluminium sheet put behind armour in witness tests: it records what got through as holes, dents and tears. Use a thin full-width layer (1 to 3 mm); it is held at its edges like any plate."
+    },
+    {
+      "id": "ti64",
+      "name": "Titanium alloy Ti-6Al-4V",
+      "group": "light_metal",
+      "density_kgm3": 4430,
+      "hardness_bhn": 330,
+      "resistance_gpa": 4.0,
+      "ke_efficiency": 1.2,
+      "color": "#9aa0b5",
+      "mpm": {"shear_gpa": 42.5, "bulk_gpa": 119, "yield_gpa": 1.098, "hardening_gpa": 1.092, "hardening_exp": 0.93, "softening_exp": 1.1, "melt_k": 1878, "heat_jkgk": 560, "failure_strain": 0.5, "spall_gpa": 3},
+      "confidence": "low",
+      "sources": [
+        "MIL-DTL-46077 (titanium armor plate, public specification)",
+        "Rosenberg & Dekel (2016), Terminal Ballistics, 2nd ed."
+      ],
+      "notes": "Mass-efficient but expensive; adiabatic shear plugging is not modelled."
+    },
+    {
+      "id": "alumina",
+      "name": "Alumina ceramic (95 %, confined)",
+      "group": "ceramic",
+      "density_kgm3": 3700,
+      "hardness_bhn": 0,
+      "resistance_gpa": 6.0,
+      "ke_efficiency": 1.6,
+      "ceramic": true,
+      "color": "#e8e1cf",
+      "mpm": {"model": "ceramic", "shear_gpa": 152, "bulk_gpa": 231, "melt_k": 2300, "heat_jkgk": 880, "hel_gpa": 6.0, "intact_a": 0.93, "intact_n": 0.6, "fractured_b": 0.31, "fractured_m": 0.6, "tensile_gpa": 0.2, "fractured_max": 0.5, "fracture_d1": 0.005, "fracture_d2": 1.0},
+      "confidence": "low",
+      "sources": [
+        "Rosenberg & Dekel (2016), Terminal Ballistics, 2nd ed., ch. on ceramic armour",
+        "Anderson (2017), Int. J. Impact Eng. 101:24 (analytical models review)",
+        "Johnson & Holmquist (1994), AIP Conf. Proc. 309:981 (JH-2 model and an alumina fit)"
+      ],
+      "notes": "Tate resistance assumes good lateral confinement; dwell and interface defeat are not modelled."
+    },
+    {
+      "id": "sic",
+      "name": "Silicon carbide ceramic (confined)",
+      "group": "ceramic",
+      "density_kgm3": 3200,
+      "hardness_bhn": 0,
+      "resistance_gpa": 7.5,
+      "ke_efficiency": 2.0,
+      "ceramic": true,
+      "color": "#5b5f66",
+      "mpm": {"model": "ceramic", "shear_gpa": 193, "bulk_gpa": 220, "melt_k": 3000, "heat_jkgk": 700, "hel_gpa": 14.6, "intact_a": 0.96, "intact_n": 0.65, "fractured_b": 0.35, "fractured_m": 1.0, "tensile_gpa": 0.37, "fractured_max": 0.8, "fracture_d1": 0.48, "fracture_d2": 0.48},
+      "confidence": "low",
+      "sources": [
+        "Rosenberg & Dekel (2016), Terminal Ballistics, 2nd ed.",
+        "Holmquist & Johnson (2005), J. Appl. Phys. 97:093502 (JH-2 fit for silicon carbide)"
+      ],
+      "notes": "Hard, light ceramic used in body armour and appliqué tiles. Values are representative only."
+    },
+    {
+      "id": "b4c",
+      "name": "Boron carbide ceramic (confined)",
+      "group": "ceramic",
+      "density_kgm3": 2510,
+      "hardness_bhn": 0,
+      "resistance_gpa": 7.0,
+      "ke_efficiency": 2.2,
+      "ceramic": true,
+      "color": "#3f4349",
+      "mpm": {"model": "ceramic", "shear_gpa": 197, "bulk_gpa": 233, "melt_k": 2700, "heat_jkgk": 950, "hel_gpa": 19, "intact_a": 0.927, "intact_n": 0.67, "fractured_b": 0.7, "fractured_m": 0.85, "tensile_gpa": 0.26, "fractured_max": 0.2, "fracture_d1": 0.001, "fracture_d2": 0.5},
+      "confidence": "low",
+      "sources": [
+        "Rosenberg & Dekel (2016), Terminal Ballistics, 2nd ed.",
+        "Johnson & Holmquist (1999), J. Appl. Phys. 85:8060 (JH-2 fit for boron carbide)"
+      ],
+      "notes": "Lightest common armour ceramic; loses strength under very high pressure (amorphisation), which is not modelled."
+    },
+    {
+      "id": "glass",
+      "name": "Soda-lime glass",
+      "group": "other",
+      "density_kgm3": 2500,
+      "hardness_bhn": 0,
+      "resistance_gpa": 3.0,
+      "ke_efficiency": 0.8,
+      "ceramic": true,
+      "color": "#a9d4dc",
+      "mpm": {"model": "ceramic", "shear_gpa": 30, "bulk_gpa": 45, "melt_k": 1700, "heat_jkgk": 840, "hel_gpa": 5.95, "intact_a": 0.93, "intact_n": 0.77, "fractured_b": 0.088, "fractured_m": 0.35, "tensile_gpa": 0.15, "fractured_max": 0.5, "fracture_d1": 0.053, "fracture_d2": 0.85},
+      "confidence": "low",
+      "sources": [
+        "Rosenberg & Dekel (2016), Terminal Ballistics, 2nd ed.",
+        "Holmquist, Johnson et al. (1995), 15th Int. Symp. on Ballistics (JH-2 fit for float glass)"
+      ],
+      "notes": "Laminated glass blocks appear in transparent armour. Failure-wave behaviour is not modelled."
+    },
+    {
+      "id": "aramid",
+      "name": "Aramid laminate (spall liner)",
+      "group": "other",
+      "density_kgm3": 1350,
+      "hardness_bhn": 0,
+      "resistance_gpa": 0.6,
+      "ke_efficiency": 0.5,
+      "color": "#d8c36a",
+      "mpm": {"model": "composite", "shear_gpa": 2, "bulk_gpa": 6, "yield_gpa": 0.15, "hardening_gpa": 0.1, "hardening_exp": 0.5, "softening_exp": 1, "melt_k": 700, "heat_jkgk": 1420, "failure_strain": 0.5, "spall_gpa": 0.6, "fibre_modulus_gpa": 25, "fibre_failure_strain": 0.035, "delam_tension_gpa": 0.01, "delam_shear_gpa": 0.015},
+      "confidence": "low",
+      "sources": [
+        "Rosenberg & Dekel (2016), Terminal Ballistics, 2nd ed."
+      ],
+      "notes": "Woven fibre laminate; effective against fragments, weak against long rods and jets. The deformation simulation models the fibres along the plies (in-plane laminate modulus, about 3.5% failure strain) and delamination; the values are order-of-magnitude."
+    },
+    {
+      "id": "uhmwpe",
+      "name": "UHMWPE laminate",
+      "group": "other",
+      "density_kgm3": 970,
+      "hardness_bhn": 0,
+      "resistance_gpa": 0.5,
+      "ke_efficiency": 0.6,
+      "color": "#eef0ea",
+      "mpm": {"model": "composite", "shear_gpa": 0.7, "bulk_gpa": 4, "yield_gpa": 0.03, "hardening_gpa": 0.05, "hardening_exp": 0.5, "softening_exp": 1, "melt_k": 420, "heat_jkgk": 1900, "failure_strain": 1.5, "spall_gpa": 0.3, "fibre_modulus_gpa": 40, "fibre_failure_strain": 0.035, "delam_tension_gpa": 0.005, "delam_shear_gpa": 0.005},
+      "confidence": "low",
+      "sources": [
+        "Rosenberg & Dekel (2016), Terminal Ballistics, 2nd ed."
+      ],
+      "notes": "Lighter than water. The engineering model does not model fibre stretching or delamination; the deformation simulation does, with a stiff fibre (in-plane laminate modulus, about 3.5% failure strain) in a soft matrix whose weak interlaminar strengths let it delaminate readily. Order-of-magnitude values."
+    },
+    {
+      "id": "sheet_explosive",
+      "name": "Sheet explosive (generic ERA interlayer)",
+      "group": "other",
+      "density_kgm3": 1500,
+      "hardness_bhn": 0,
+      "resistance_gpa": 0.2,
+      "ke_efficiency": 0.2,
+      "reactive": true,
+      "color": "#d9a13b",
+      "mpm": {"shear_gpa": 0.5, "bulk_gpa": 8, "yield_gpa": 0.03, "hardening_gpa": 0, "hardening_exp": 1, "softening_exp": 1, "melt_k": 450, "heat_jkgk": 1300, "failure_strain": 2, "spall_gpa": 0.05, "detonation_kms": 7, "energy_mjkg": 4, "products_gamma": 3, "initiation_gpa": 2},
+      "confidence": "low",
+      "sources": [
+        "Cooper (1996), Explosives Engineering: detonation speeds and Gurney energies of plastic explosives",
+        "Mader (2008), Numerical Modeling of Explosives and Propellants, 3rd ed.: gamma-law products"
+      ],
+      "notes": "Generic flexible sheet explosive. The penetration model treats it as an inert soft layer; the deformation simulation lights it under a strong shock and drives the neighbouring plates apart."
+    },
+    {
+      "id": "rubber",
+      "name": "Rubber / elastomer",
+      "group": "other",
+      "density_kgm3": 1100,
+      "hardness_bhn": 0,
+      "resistance_gpa": 0.1,
+      "ke_efficiency": 0.2,
+      "color": "#3a3330",
+      "mpm": {"model": "elastomer", "shear_gpa": 0.002, "bulk_gpa": 2.5, "melt_k": 500, "heat_jkgk": 1900, "failure_strain": 5, "spall_gpa": 0.01, "viscosity_pas": 100, "viscous_limit_gpa": 0.02},
+      "confidence": "low",
+      "sources": [
+        "Representative density; resistance is an order-of-magnitude estimate"
+      ],
+      "notes": "Interlayer material. The engineering model treats it as a weak layer, so the bulging of plates in real arrays is outside it; the deformation simulation runs it as an elastomer, where a steel/rubber/steel sandwich bulges."
+    },
+    {
+      "id": "polyurea",
+      "name": "Polyurea / polyurethane elastomer",
+      "group": "other",
+      "density_kgm3": 1070,
+      "hardness_bhn": 0,
+      "resistance_gpa": 0.15,
+      "ke_efficiency": 0.25,
+      "color": "#6e6a5e",
+      "mpm": {"model": "elastomer", "shear_gpa": 0.02, "bulk_gpa": 4.9, "melt_k": 500, "heat_jkgk": 1800, "failure_strain": 4, "spall_gpa": 0.02, "viscosity_pas": 400, "viscous_limit_gpa": 0.08},
+      "confidence": "low",
+      "sources": [
+        "Representative values for spray-on polyurea from open literature (bulk modulus after Amirkhizi et al. (2006), Philos. Mag. 86); resistance is an order-of-magnitude estimate"
+      ],
+      "notes": "Coating or interlayer elastomer that stiffens strongly at high strain rates; the capped viscosity stands in for that."
+    },
+    {
+      "id": "ballistic_gelatin",
+      "name": "Ballistic gelatin (10 %, 4 deg C)",
+      "group": "other",
+      "density_kgm3": 1040,
+      "hardness_bhn": 0,
+      "resistance_gpa": 0.001,
+      "ke_efficiency": 0.1,
+      "color": "#d99a45",
+      "mpm": {"model": "elastomer", "shear_gpa": 3e-5, "bulk_gpa": 2.4, "melt_k": 450, "heat_jkgk": 3900, "failure_strain": 0.8, "spall_gpa": 0.005, "viscosity_pas": 20, "viscous_limit_gpa": 0.002},
+      "confidence": "low",
+      "sources": [
+        "Kwon & Subhash (2010), J. Biomech. 43, 420 (compressive response of 10 % gelatin at high strain rates)",
+        "Salisbury & Cronin (2009), Experimental Mechanics 49, 829 (gelatin at high deformation rates)"
+      ],
+      "notes": "A soft calibrated test medium, not a model of anything else: density and bulk modulus (sound speed about 1500 m/s) are those of water, the shear modulus is tens of kilopascals, and the capped viscosity stands in for its stiffening at high strain rate. It tears at a stretch near one and then flows as a fluid; melt_k stands for thermal breakdown, not the gel's own melting near 305 K. The engineering model treats it as an almost strengthless layer."
+    },
+    {
+      "id": "concrete",
+      "name": "Concrete (~40 MPa)",
+      "group": "other",
+      "density_kgm3": 2400,
+      "hardness_bhn": 0,
+      "resistance_gpa": 0.9,
+      "ke_efficiency": 0.45,
+      "color": "#b5ada0",
+      "mpm": {"shear_gpa": 12, "bulk_gpa": 14, "yield_gpa": 0.04, "hardening_gpa": 0, "hardening_exp": 1, "softening_exp": 1, "melt_k": 1500, "heat_jkgk": 880, "failure_strain": 0.01, "spall_gpa": 0.004},
+      "confidence": "low",
+      "sources": [
+        "Rosenberg & Dekel (2016), Terminal Ballistics, 2nd ed., ch. on concrete targets"
+      ],
+      "notes": "Unreinforced. Front cratering and rear scabbing are not modelled."
+    },
+    {
+      "id": "sand",
+      "name": "Packed dry sand (sandbags)",
+      "group": "other",
+      "density_kgm3": 1650,
+      "hardness_bhn": 0,
+      "resistance_gpa": 0.3,
+      "ke_efficiency": 0.35,
+      "color": "#d6bf8c",
+      "mpm": {"shear_gpa": 0.1, "bulk_gpa": 0.3, "yield_gpa": 0.001, "hardening_gpa": 0, "hardening_exp": 1, "softening_exp": 1, "melt_k": 1900, "heat_jkgk": 830, "failure_strain": 0.05, "spall_gpa": 0.0001},
+      "confidence": "low",
+      "sources": [
+        "Representative density; resistance is an order-of-magnitude estimate"
+      ],
+      "notes": "Granular target; strength depends strongly on compaction and moisture."
+    }
+  ],
+  "presets": [
+    {
+      "id": "rha_50",
+      "name": "50 mm RHA plate",
+      "obliquity_deg": 0,
+      "layers": [ { "material": "rha", "thickness_mm": 50 } ]
+    },
+    {
+      "id": "rha_100",
+      "name": "100 mm RHA plate",
+      "obliquity_deg": 0,
+      "layers": [ { "material": "rha", "thickness_mm": 100 } ]
+    },
+    {
+      "id": "rha_100_60",
+      "name": "100 mm RHA plate at 60 deg",
+      "obliquity_deg": 60,
+      "layers": [ { "material": "rha", "thickness_mm": 100 } ]
+    },
+    {
+      "id": "rha_300",
+      "name": "300 mm RHA block",
+      "obliquity_deg": 0,
+      "layers": [ { "material": "rha", "thickness_mm": 300 } ]
+    },
+    {
+      "id": "thin_sheet_rha_100",
+      "name": "1 mm steel sheet, 300 mm gap, 100 mm RHA",
+      "obliquity_deg": 0,
+      "layers": [
+        { "material": "mild_steel", "thickness_mm": 1 },
+        { "material": "rha", "thickness_mm": 100, "gap_mm": 300 }
+      ]
+    },
+    {
+      "id": "rha_600",
+      "name": "600 mm RHA block",
+      "obliquity_deg": 0,
+      "layers": [ { "material": "rha", "thickness_mm": 600 } ]
+    },
+    {
+      "id": "spaced_steel",
+      "name": "Spaced steel: 20 mm HHA, 300 mm gap, 80 mm RHA",
+      "obliquity_deg": 0,
+      "layers": [
+        { "material": "hha", "thickness_mm": 20 },
+        { "material": "rha", "thickness_mm": 80, "gap_mm": 300 }
+      ]
+    },
+    {
+      "id": "aluminium_plate",
+      "name": "40 mm aluminium 5083 plate",
+      "obliquity_deg": 0,
+      "layers": [ { "material": "al5083", "thickness_mm": 40 } ]
+    },
+    {
+      "id": "ceramic_sandwich",
+      "name": "Ceramic sandwich: 10 mm HHA, 60 mm alumina, 30 mm RHA",
+      "obliquity_deg": 0,
+      "layers": [
+        { "material": "hha", "thickness_mm": 10 },
+        { "material": "alumina", "thickness_mm": 60 },
+        { "material": "rha", "thickness_mm": 30 }
+      ]
+    },
+    {
+      "id": "ceramic_composite",
+      "name": "Ceramic on composite backing (20 mm alumina, 25 mm UHMWPE)",
+      "obliquity_deg": 0,
+      "layers": [
+        { "material": "alumina", "thickness_mm": 20 },
+        { "material": "uhmwpe", "thickness_mm": 25 }
+      ]
+    },
+    {
+      "id": "glass_steel",
+      "name": "Glass-steel laminate: 40 mm RHA, 100 mm glass, 40 mm RHA",
+      "obliquity_deg": 0,
+      "layers": [
+        { "material": "rha", "thickness_mm": 40 },
+        { "material": "glass", "thickness_mm": 100 },
+        { "material": "rha", "thickness_mm": 40 }
+      ]
+    },
+    {
+      "id": "reactive_sandwich",
+      "name": "Generic reactive tiles (4/4/4 mm, 250 mm wide) at 60 deg, 150 mm gap, 60 mm RHA",
+      "obliquity_deg": 60,
+      "layers": [
+        { "material": "rha", "thickness_mm": 4, "block_width_mm": 250, "block_gap_mm": 10, "block_count": 3 },
+        { "material": "sheet_explosive", "thickness_mm": 4, "block_width_mm": 250, "block_gap_mm": 10, "block_count": 3 },
+        { "material": "rha", "thickness_mm": 4, "block_width_mm": 250, "block_gap_mm": 10, "block_count": 3 },
+        { "material": "rha", "thickness_mm": 60, "gap_mm": 150 }
+      ]
+    },
+    {
+      "id": "bulging_sandwich",
+      "name": "Generic bulging tiles (6/6/6 mm steel/rubber/steel, 250 mm wide) at 60 deg, 150 mm gap, 60 mm RHA",
+      "obliquity_deg": 60,
+      "layers": [
+        { "material": "rha", "thickness_mm": 6, "block_width_mm": 250, "block_gap_mm": 10, "block_count": 3 },
+        { "material": "rubber", "thickness_mm": 6, "block_width_mm": 250, "block_gap_mm": 10, "block_count": 3 },
+        { "material": "rha", "thickness_mm": 6, "block_width_mm": 250, "block_gap_mm": 10, "block_count": 3 },
+        { "material": "rha", "thickness_mm": 60, "gap_mm": 150 }
+      ]
+    },
+    {
+      "id": "concrete_wall",
+      "name": "300 mm concrete wall",
+      "obliquity_deg": 0,
+      "layers": [ { "material": "concrete", "thickness_mm": 300 } ]
+    },
+    {
+      "id": "sandbag_wall",
+      "name": "Sandbag wall (500 mm sand behind 6 mm mild steel)",
+      "obliquity_deg": 0,
+      "layers": [
+        { "material": "mild_steel", "thickness_mm": 6 },
+        { "material": "sand", "thickness_mm": 500 }
+      ]
+    },
+    {
+      "id": "gelatin_block",
+      "name": "Ballistic gelatin block (10 %, 200 mm wide, 250 mm deep)",
+      "obliquity_deg": 0,
+      "layers": [
+        { "material": "ballistic_gelatin", "thickness_mm": 250, "block_width_mm": 200, "block_count": 1 }
+      ]
+    },
+    {
+      "id": "witness_plate",
+      "name": "Witness sheet: 12 mm RHA, 150 mm gap, 1.5 mm aluminium 2024",
+      "obliquity_deg": 0,
+      "layers": [
+        { "material": "rha", "thickness_mm": 12 },
+        { "material": "al2024", "thickness_mm": 1.5, "gap_mm": 150 }
+      ]
+    },
+    {
+      "id": "witness_gelatin",
+      "name": "12 mm RHA, 150 mm gap, 1.5 mm witness sheet, 100 mm gap, gelatin block",
+      "obliquity_deg": 0,
+      "layers": [
+        { "material": "rha", "thickness_mm": 12 },
+        { "material": "al2024", "thickness_mm": 1.5, "gap_mm": 150 },
+        { "material": "ballistic_gelatin", "thickness_mm": 250, "gap_mm": 100, "block_width_mm": 200, "block_count": 1 }
+      ]
+    },
+    {
+      "id": "slat_screen",
+      "name": "Slat screen: seven 8 mm x 30 mm steel slats, 30 mm gaps, 300 mm gap, 40 mm RHA hull",
+      "obliquity_deg": 0,
+      "layers": [
+        { "material": "rha", "thickness_mm": 8, "block_width_mm": 30, "block_gap_mm": 30, "block_count": 7 },
+        { "material": "rha", "thickness_mm": 40, "gap_mm": 300 }
+      ]
+    },
+    {
+      "id": "bar_screen",
+      "name": "Bar screen: five 20 mm square steel bars, 50 mm gaps, 400 mm gap, 40 mm RHA hull",
+      "obliquity_deg": 0,
+      "layers": [
+        { "material": "rha", "thickness_mm": 20, "block_width_mm": 20, "block_gap_mm": 50, "block_count": 5 },
+        { "material": "rha", "thickness_mm": 40, "gap_mm": 400 }
+      ]
+    },
+    {
+      "id": "sloped_glacis",
+      "name": "Sloped glacis: 20 mm HHA over 60 mm RHA at 65 deg",
+      "obliquity_deg": 65,
+      "layers": [
+        { "material": "hha", "thickness_mm": 20 },
+        { "material": "rha", "thickness_mm": 60 }
+      ]
+    },
+    {
+      "id": "perforated_plate",
+      "name": "Perforated plate: 15 mm HHA strips with 10 mm slots, 150 mm gap, 40 mm RHA",
+      "obliquity_deg": 0,
+      "layers": [
+        { "material": "hha", "thickness_mm": 15, "block_width_mm": 20, "block_gap_mm": 10, "block_count": 9 },
+        { "material": "rha", "thickness_mm": 40, "gap_mm": 150 }
+      ]
+    },
+    {
+      "id": "witness_stack",
+      "name": "Witness stack: 12 mm RHA, then three 1.5 mm witness sheets 100 mm apart",
+      "obliquity_deg": 0,
+      "layers": [
+        { "material": "rha", "thickness_mm": 12 },
+        { "material": "al2024", "thickness_mm": 1.5, "gap_mm": 100 },
+        { "material": "al2024", "thickness_mm": 1.5, "gap_mm": 100 },
+        { "material": "al2024", "thickness_mm": 1.5, "gap_mm": 100 }
+      ]
+    }
+  ]
+}

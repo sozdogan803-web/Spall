@@ -1,0 +1,22 @@
+#version 460
+// Grid update: node velocity = momentum / mass. Nodes held by anchored plate edges, and the
+// outermost ring, stay at rest. No body forces.
+#include "mpm_common.glsl"
+
+layout(local_size_x = 16, local_size_y = 16) in;
+
+void main() {
+    ivec2 n = ivec2(gl_GlobalInvocationID.xy);
+    if (any(greaterThanEqual(n, uN))) return;
+    int k = nodeIndex(n) * 4;
+    int m = grid[k];
+    vec2 v = vec2(0.0);
+    bool edge = any(lessThan(n, ivec2(1))) || any(greaterThanEqual(n, uN - 1));
+    if (m > 0 && grid[k + 3] == 0 && !edge) {
+        v = vec2(float(grid[k + 1]), float(grid[k + 2])) / float(m) * uVelRef;
+        float s = length(v);
+        if (s > 4.0 * uVelRef) v *= 4.0 * uVelRef / s;
+        if (!finite2(v)) v = vec2(0.0);
+    }
+    gridVelocity[nodeIndex(n)] = v;
+}

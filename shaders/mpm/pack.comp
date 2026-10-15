@@ -1,0 +1,33 @@
+#version 460
+// Packs the deformation simulation's particles into one pre-rendered frame
+// (src/render/mpm_snapshots.cpp); the frame's range of the store is bound at 7. A frame keeps one
+// particle of every uStride consecutive ones, picked by a fixed hash so the kept particles do not
+// line up with the scene's rows and columns: slot j holds particle j * uStride + pick(j), the same
+// particle in every frame of a run. A chunk of the store is bound at 0 and a dispatch of it
+// (uBase, uCount) covers the slots whose block of uStride particles overlaps it.
+#include "mpm_common.glsl"
+#include "frame.glsl"
+
+layout(local_size_x = 256) in;
+
+layout(std430, binding = 7) writeonly buffer Frames { Frame frames[]; };
+
+uniform uint uStride;  // one particle of every uStride is kept
+uniform uint uTotal;   // particles of the whole store
+
+// The particle slot j keeps: in its block, which is short at the end of the store. Stride 1 keeps all.
+uint kept(uint j) {
+    uint size = min(uStride, uTotal - j * uStride);
+    uint h = j * 2654435761u;
+    h ^= h >> 15;
+    h *= 2246822519u;
+    h ^= h >> 13;
+    return j * uStride + h % size;
+}
+
+void main() {
+    uint j = uBase / uStride + gl_GlobalInvocationID.x;
+    if (j * uStride >= uTotal) return;
+    uint id = kept(j);
+    if (id >= uBase && id < uBase + uCount) frames[j] = packFrame(particles[id - uBase]);
+}

@@ -1,0 +1,48 @@
+#version 460
+// Particle to grid (APIC / MLS-MPM): scatters mass and momentum, including the stress impulse
+// -dt V0 (4 / dx^2) tau (x_i - x_p), into the fixed-point grid with integer atomics so the
+// sum does not depend on the order. Anchored particles also mark their nodes as held. Tethered
+// ones (soft mounts) are pulled to their rest position X0 by a damped spring, as a body force.
+#include "mpm_common.glsl"
+
+layout(local_size_x = 256) in;
+
+void main() {
+    uint id = gl_GlobalInvocationID.x;
+    if (id >= uCount) return;
+    Particle p = particles[id];
+    if ((p.flags & FLAG_INACTIVE) != 0u) return;
+
+    ivec2 base = ivec2(floor(p.x - 0.5));
+    vec2 fx = p.x - vec2(base);
+    vec2 w[3];
+    weights(fx, w);
+
+    mat2 tau = mat2(p.tau.x, p.tau.z, p.tau.z, p.tau.y);
+    mat2 C = mat2(p.C.x, p.C.z, p.C.y, p.C.w);  // column-major: C[col][row]
+    mat2 affine = (-uDt * p.vol * 4.0 / (uDx * uDx)) * tau + p.mass * C;
+    bool anchored = (p.flags & FLAG_ANCHORED) != 0u;
+    vec2 momentum = anchored ? vec2(0.0) : p.mass * p.v;
+    if (anchored) affine = mat2(0.0);
+    if ((p.flags & FLAG_TETHERED) != 0u) {
+        vec2 d = (p.x - p.X0) * uDx;
+        momentum += p.mass * uDt * (-uTether.x * uTether.x * d - 2.0 * uTether.y * uTether.x * p.v);
+    }
+
+    float massUnit = kFixedScale / uMassRef;
+    float momentumUnit = kFixedScale / (uMassRef * uVelRef);
+    for (int i = 0; i < 3; ++i)
+        for (int j = 0; j < 3; ++j) {
+            ivec2 node = base + ivec2(i, j);
+            if (any(lessThan(node, ivec2(0))) || any(greaterThanEqual(node, uN))) continue;
+            float weight = w[i].x * w[j].y;
+            vec2 dpos = (vec2(i, j) - fx) * uDx;
+            vec2 mom = weight * (momentum + affine * dpos);
+            int k = nodeIndex(node) * 4;
+            atomicAdd(grid[k + 0], int(round(min(weight * p.mass * massUnit, kFixedClamp))));
+            ivec2 q = ivec2(round(clamp(mom * momentumUnit, -kFixedClamp, kFixedClamp)));
+            atomicAdd(grid[k + 1], q.x);
+            atomicAdd(grid[k + 2], q.y);
+            if (anchored && weight > 0.0) atomicOr(grid[k + 3], 1);
+        }
+}

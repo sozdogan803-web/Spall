@@ -1,0 +1,4 @@
+// Windows resources: the exe icon (resource 1 is what Explorer shows; GLFW_ICON is what GLFW loads for
+// the window and taskbar). Regenerate the icon with docs/brand/make_logo.py.
+1         ICON "spall.ico"
+GLFW_ICON ICON "spall.ico"
