@@ -194,3 +194,4 @@ docs/        physics notes, brand files, release notes
 
 Spall is released under the MIT licence (see `LICENSE`). GLFW (zlib/libpng) and Dear ImGui (MIT)
 are vendored unmodified in `third_party/`; see `third_party/VERSIONS.txt`.
+and yes its made with ai.
